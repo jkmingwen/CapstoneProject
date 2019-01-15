@@ -4,14 +4,24 @@
 
 .DS_STORE
 
-# Ignore XCode Projects
+# Ignore XCode Projects:
 # Cinder Projects
 **/xcode
 **/resources
 **/assets
+
 # JUCE Projects
 **/Builds
 **/JuceLibraryCode
+JUCESimpleVSynth.jucer
+
 # openFrameworks Projects
+**/exploringSoundStream/Makefile
+Project.xcconfig
+addons.make
+**/bin
+config.make
+**/exploringSoundStream.xcodeproj
+openFrameworks-Info.plist
 
 
