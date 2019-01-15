@@ -1,0 +1,17 @@
+# Ignore non-relevant files for Latex reports
+**/graphics
+**/auto
+
+.DS_STORE
+
+# Ignore XCode Projects
+# Cinder Projects
+**/xcode
+**/resources
+**/assets
+# JUCE Projects
+**/Builds
+**/JuceLibraryCode
+# openFrameworks Projects
+
+
