@@ -1,0 +1,99 @@
+\documentclass{report}
+\usepackage[utf8]{inputenc}
+\usepackage{listings} % this is to allow code formatting in document
+\usepackage[labelformat=simple]{subcaption}
+\renewcommand\thesubfigure{(\alph{subfigure})}
+\usepackage{graphicx} % allow for figures
+\usepackage{url} % make url hyperlinks work
+\graphicspath{ {graphics/} } % set graphics path
+\usepackage{subfiles} % allow for subfiles
+\usepackage[table,xcdraw]{xcolor} % allow for table creation
+\usepackage{booktabs} % table package for alternate table design
+% make paths for sub-directories
+\makeatletter
+\providecommand*{\input@path}{}
+\g@addto@macro\input@path{{./sections//}{./sections/subsections}{./subsections}}
+\makeatother
+\usepackage{biblatex} % use biblatex for citations
+\addbibresource{../../../BibTeXFiles/report2_ref.bib} % set bib file for citations
+\usepackage{hyperref} % better linking in document
+\usepackage{listings} % break lines in verbatim environment (doesn't seem to work for some reason - fix later!)
+\lstset
+{
+basicstyle=\small\ttfamily,
+columns=flexible,
+breaklines=true
+}
+
+\title{Report 2}
+\author{Jaime Koh}
+
+\begin{document}
+
+\newpage
+\maketitle
+\tableofcontents
+\newpage
+
+\section*{Introduction}
+\markright{}
+\addcontentsline{toc}{section}{Introduction}
+% check citations for this paragraph!
+Video synthesizers started off as ``machines that electronically manipulated a video signal or a cathode ray tube to produce abstract or distorted images'' \cite{Collopy2014}. The various video synthesizers built by John and James Whitney \cite{Patterson2009}, Eric Siegel \cite{ElectronicArtsIntermix}, Nam June Paik and Shuya Abe \cite{Furlong1983}, and Stephen Beck \cite{Beck1992} --- amongst others --- expanded the scope of methods with which visuals could be produced. The gradual digitalisation of video synthesizers introduced even more means with which one could manipulate and produce a visual signal \cite{Collopy2014}. A video synthesizer can thus be broadly understood as a tool that takes in some form of input and manipulates or utilises said input to produce a visual signal. One possible input for a video synthesizer is an audio signal. This is not an uncommon technique --- both Windows Media Player and iTunes have music visualisation functions that react to the audio signal of the media being played. These add a visual dimension to what was once purely an aural sensory experience and allows users to enjoy music in more active ways than conventional passive music consumption \cite{Casey2008}. \par
+
+There are several video synthesizers made specifically for music visualisation that are designed to run off a computer \cite{Casey2008}, however, such an implementation makes them cumbersome for use in a live context --- space on a stage can be sparse, and having to bring a computer to performances is inconvenient, especially if that means having to set up another piece of equipment. The solution to this is to have a video synthesizer that is implemented in a more portable enclosure. These do exist, nonetheless, most portable video synthesizers offer only simple graphics, such as those seen in Figure \ref{fig:etc}.
+
+\begin{figure}[b]
+  \begin{subfigure}{0.5\textwidth}
+  \includegraphics[width = 0.9\linewidth]{Report2/etc_mode}
+  \caption{Screenshot \textit{ETC} video output}
+  \label{fig:etc_mode}
+\end{subfigure}
+\begin{subfigure}{0.5\textwidth}
+  \includegraphics[width = 0.9\linewidth]{Report2/etc_modeimages}
+  \caption{\textit{ETC} output using images}
+  \label{fig:etc_modeimages}
+\end{subfigure}
+\caption{Visuals from the \textit{ETC}}
+\label{fig:etc}
+\end{figure}
+
+\paragraph{A proposed solution}
+This project addresses the shortcomings of the current range of video synthesizers by taking advantage of the increasingly powerful processing capabilities of single-board computers (SBCs). Its aim is to design and implement a portable video synthesizer that takes in an audio signal as input and --- using information extracted from the audio signal --- produces and manipulates a visual output in real-time. The goal is to design and implement a video synthesizer that will (1) produce complex and aesthetically pleasing visuals that react in real-time to a musician's playing and (2) integrate smoothly into a musician's live setup. \par
+
+Progress on the capstone project thus far can be broadly split into two parts. The first part consists of a review of the field of audiovisual expression, signal processing techniques, and how some portable video synthesizers have been implemented. It explains the motivations and research done on combining visuals with audio, and how music information can be extracted from an audio signal. The second part consists of research on frameworks and SBCs. It illustrates how the software and hardware tools used in this project have been, and will be selected. \par
+
+While the primary purpose of this report is to document the progress of this capstone, it also aims to orientate readers to several things: the field of audiovisual expression, the relevant techniques used in Music Information Retrieval (MIR), as well as some of the portable video synthesizers built for music visualisation currently available on the market. Brief definitions of the terminologies within these fields have therefore been included when relevant, along with references to more in depth readings pertaining to the given field. It will then explain the work done thus far and project how the this will contribute to the subsequent steps of the project. This report is therefore split into three chapters: (1) Audiovisual expression, Music Feature Extraction, and Video Synthesizers, (2) Framework and Board Reviews, and (3) Subsequent steps.
+% Control intimacy: Can introduce later (just say latency for now) --- think about Chion and how we want to link images tgt and this can help with avoiding perceptions of latency
+% Music visualizers vs Video Synthesizer: music visualizer implies more passivity, video synthesizer doesn't necessarily need audio input
+% Turning sound into moving images
+% It's an improvement cause there's intent to evoke emotional responses from audiences and not just present information
+
+\chapter{Audiovisual Expression, Music Feature Extraction, and Video Synthesizers}
+\subfile{sections/sub_audiovisual}
+\subfile{sections/sub_mir}
+\subfile{sections/sub_videosynthesizers}
+
+\chapter{Framework and Board Reviews}
+\subfile{sections/sub_frameworkreview}
+\subfile{sections/sub_boardreview}
+
+\chapter{Subsequent steps}
+% Write a premilinary work section
+% This is what I've done:
+% Audio parameter (amplitude) in time-domain to visual parameters
+% Real-time Hi-Z input into computer
+
+Thus far, I have succeeded in mapping an audio parameter in the time-domain (amplitude) to visual parameters on a computer. The results of which can be seen in sections \ref{sec:openframeworks}, \ref{sec:cinder}, and \ref{sec:juce}. This mapping is performed with a real-time audio signal as input.\footnotemark These implementations can all take in the audio signal from an electric guitar. \par
+\footnotetext{A demonstration of the implementation on openFrameworks can be viewed here: \url{https://vimeo.com/301165633}.}
+
+
+The information gained from the review of the field of audiovisual expression, music feature extraction, and video synthesizers, as well as the framework and board reviews, are the starting points for the next steps of this project. The first task following this report would be to design a visual language --- in the form of a mapping of forms of visual movement to characteristics of audio --- for the video synthesizer. The design of this visual language will be guided by the works of John Whitney, Michel Chion, Adriana Sa, as well as some of the current implementations highlighted in the framework review. Once this has been decided upon, work will begin in implementing this visual language using the chosen framework from Section \ref{sec:frameworkreview}, in a way that will respond to the parameters of a live audio input. The next logical steps after this is to embark upon user testing to shape iterative prototypes of the visual language, ultimately followed by implementing the video synthesizer on a SBC. The selection of the SBC to use will be guided by the board review in Section \ref{sec:boardreview}. The interface of the final product which will also undergo a series of iterative prototypes guided by feedback from user tests.
+% What is the objective of this project? If it's an art work, then user testing only comes after implemntation in hardware <-- maybe this more?. If it's supposed to be a psychological thing, then I test right after implementing audiovisual language.
+\printbibliography
+
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

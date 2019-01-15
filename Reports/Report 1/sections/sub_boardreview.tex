@@ -1,0 +1,42 @@
+\documentclass[../main_report1.tex]{subfiles}
+
+\begin{document}
+\section{Board review}\label{sec:boardreview}
+One of the main goals of the video synthesizer is to have it implemented on an embedded system. This will likely require the use of a Single Board Computer (SBC). SBCs are complete computers --- built on a single circuit board --- distinguished by having built in general purpose I/O ports (GPIO), low power consumption, and low cost \cite{Johnston2018}. The low cost and power consumption of SBCs make them suited for a project such as this where both standard computers and microcontrollers are unviable due to size and cost constraints coupled with moderately demanding processing requirements \cite{Johnston2018}. The actual implementation of the video synthesizer code on an embedded system is scheduled to come only after the protoypes of the video synthesizer have been finalised. Nonetheless, it is important that premilinary research on this field begins early in the project. One reason for this research is to provide some sense of understanding of the technical specifications that need to be considered when considering the various SBCs available in the market; this will allow us to familiarise ourselves with hardware perspectives in the field of embedded systems. Another reason is that understanding the processing and graphics capabilities of the various boards in the market will prevent any unexpected pitfalls when implementing the finalised video synthesizer code on the embedded system --- that is, by recognising the limits of the boards available to us, we can calibrate our expectations of the kinds of visuals that this project's video synthesizer can expect to produce. \par
+
+The boards chosen for review are a small sample of those currently available on the market. An overview of their capabilities is available in Table \ref{tab:boardtable}. While they are built to fulfill similar purposes, each board uses a system on a chip (SoC) manufactured by a different company and they have varying degrees of processing power in terms of CPU and GPU. The goal of this review is not to make a final decision on the SBC on which the project code will be implemented on. Instead, the goal with this review is to identify the boards that are certainly not suited for this project and to come to an understanding of the kinds of boards that would be viable for this project. The factors that will determine the viability of a board are its processing capabilities, its graphics processing capabilities, the presence of HDMI and USB ports, and its dimensions. \par
+
+One way of determining a board's processing and graphics processing capabilities are the number of processing cores on its CPU as well as the clock speed of the CPU and the GPU. The amount of random-access memory (RAM) available on the board is also important as it will determine the amount of processing that the SBC can perform before having to revert to swapping out processes from main memory --- a process that tends to incur overheads and slows down the running of the program. It is also important that the board has USB and HDMI ports as these are the physical connections with which it will take in an audio input and output the generated visuals. Finally, the dimensions of each board was noted as the size of the board will affect the portability of the final product. \par
+
+The most objective metric of processing and graphic processing capabilities is floating point operations per second. Unfortunately, the only reliable way measure this is to take the measurements ourselves. Given the time and budget constraints of the project, this is not currently viable. Once a program is running, however, we could consider properly benchmarking the program on the various SBCs if they are available to us.
+
+\begin{table}[h]
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llllcl}
+\hline
+\rowcolor[HTML]{FFCE93} 
+Board                                                             & CPU                                                                        & GPU                                                                           & RAM   & HDMI & USB      \\ \hline
+\begin{tabular}[c]{@{}l@{}}Raspberry Pi 3\\ Model B+\end{tabular} & 4-core @ 1.4GHz                                                            & \multicolumn{1}{c}{N.A.}                                                      & 1GB   & Y    & 2.0      \\ \hline
+Jetson TX2                                                        & \begin{tabular}[c]{@{}l@{}}4-core @ 2GHz\\ 2-core @ 2GHz\end{tabular}      & \begin{tabular}[c]{@{}l@{}}NVIDIA Pascal\\ 256-core \\ @ 1300MHz\end{tabular} & 8GB   & Y    & 2.0/3.0  \\ \hline
+HiKey 970                                                         & \begin{tabular}[c]{@{}l@{}}4-core @ 2.36GHz\\ 4-core @ 1.3GHz\end{tabular} & \begin{tabular}[c]{@{}l@{}}ARM Mali \\ G72 MP12 \\ @ 850MHz\end{tabular}      & 6GB   & Y    & 2.0/3.0  \\ \hline
+Odroid XU4                                                        & \begin{tabular}[c]{@{}l@{}}4-core @ 2GHz\\ 4-core @ 1.3GHz\end{tabular}    & \begin{tabular}[c]{@{}l@{}}ARM Mali\\ T628 MP6\\ @ 600MHz\end{tabular}        & 2GB   & Y    & 2.0/3.0  \\ \hline
+Nucleo-144                                                        & 1-core @ 216MHz                                                            & \multicolumn{1}{c}{N.A.}                                                      & 256kB & N.A. & Micro-AB \\ \hline
+\begin{tabular}[c]{@{}l@{}}ZCU102\\ Evaluation Kit\end{tabular}   & \begin{tabular}[c]{@{}l@{}}4-core @ 1.5GHz\\ 2-core @ 600MHz\end{tabular}  & \begin{tabular}[c]{@{}l@{}}ARM Mali-400\\ @ 667MHz\end{tabular}               & 512MB & Y    & 2.0/3.0  \\ \hline
+\end{tabular}%
+}
+\caption{Overview of board specifications}
+\label{tab:boardtable}
+\end{table}
+
+\subfile{subsections/sub_raspberrypi}
+\subfile{subsections/sub_jetsontx2}
+\subfile{subsections/sub_hikey970}
+\subfile{subsections/sub_odroidxu4}
+\subfile{subsections/sub_nucleo144}
+\subfile{subsections/sub_zcu102}
+
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../main_report1"
+%%% End:

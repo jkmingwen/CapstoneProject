@@ -1,0 +1,46 @@
+\documentclass[../main_frameworkreview.tex]{subfiles}
+
+\begin{document}
+
+\section{JUCE}
+
+\subsection{Learning and exploring capabilities}
+JUCE seems to have an extensive list of tutorials available to users --- each comes with a skeleton for users to work off.\cite{JUCETutorials} From their tutorials page, it's evident that the framework has a focus on audio processing --- providing tutorials on Digital Signal Processing (DSP), handling MIDI data, and building synthesisers, to name a few. All user interface classes in JUCE inherit from its \verb|Component| class. Users need to explore the documentation and tutorials to get an idea of which classes they need to inherit when making derived classes. % talk about how audio threads are always highest priority
+\subsubsection{Audio processing}
+There is a \verb|AudioVisualiserComponent| class in JUCE made specifically to visualise audio data. Nonetheless, it is meant for more a means to quickly implement audio visualisation.\cite{JUCEAudioVisDoc} For the purpose of familiarising myself with this framework, I've opted instead to create one without the use of this class. Reading from the input channel of an audio device involved the use of the \verb|audioAppComponent| and \verb|timer| class. The first was used to read from the input channel of an audio device and the second was to refresh the frames of the animation.
+\subsubsection{Graphics}
+The graphics in JUCE are implemented primarily through the \verb|Component| class. The various graphics displayed on a window tend to be organised through parent and child components. Each component can implement its own \verb|paint| and \verb|resize| functions to display graphics and alter its size.\cite{JUCECompDoc} This allows the user to take a modular approach to the various graphical elements displayed on their window. JUCE also supports OpenGL for rendering graphics through the \verb|OpenGLAppComponent| class.
+
+
+\subsection{Creating a new project}
+Just like openFrameworks and Cinder, JUCE uses a project creation application. The application, named Projucer, allows users to create new projects with their required modules preloaded. Users are also able to add and remove modules, alter module paths, and rename projects from the within Projucer. After reading through the various tutorials and documentation, I was able to come up with a relatively simple animation that reacted to an audio input.
+\begin{figure}[h]
+  \begin{subfigure}{0.5\textwidth}
+    \includegraphics[width = 0.9\linewidth]{JUCE/simple_soft}
+    \caption{Simple, soft sound}
+  \end{subfigure}
+  \begin{subfigure}{0.5\textwidth}
+    \includegraphics[width = 0.9\linewidth]{JUCE/simple_med}
+    \caption{Simple, medium sound}
+  \end{subfigure}
+  \begin{subfigure}{0.5\textwidth}
+    \includegraphics[width = 0.9\linewidth]{JUCE/complex}
+    \caption{Complex sound}
+  \end{subfigure}
+\end{figure}
+\subsection{Current implementations}
+Here are some of the projects that use JUCE as a framework:
+\begin{enumerate}
+\item Cycling '74's \textit{Max}
+\item ROLI's \textit{Equator}
+\item KORG's \textit{KORG Gadget}
+\end{enumerate}
+Most of the projects that use JUCE are concerned with some form of audio processing.\cite{JUCE} The three projects listed are all, in one way or another, projects that make software to allow its users to synthesize sound and to link these capabilities up to various peripherals.
+
+\subsection{Issues}
+In spite of the many tutorials provided, it does take some time to figure out exactly how to utilise the many classes in JUCE as well as the various methods available to each class. The simple visualiser took a substantially longer time to implement on JUCE than it did on openFrameworks and Cinder. I also ran into some issues with the framerate of the visualiser and was not able to get the animation running as smoothly as in openFrameworks and Cinder.
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../main_frameworkreview"
+%%% End:

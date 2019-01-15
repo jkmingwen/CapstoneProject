@@ -1,0 +1,86 @@
+\documentclass{report}
+\usepackage[utf8]{inputenc}
+\usepackage{listings} % this is to allow code formatting in document
+\usepackage[labelformat=simple]{subcaption}
+\renewcommand\thesubfigure{(\alph{subfigure})}
+\usepackage{graphicx}
+\usepackage{url}
+\graphicspath{ {graphics/} }
+\usepackage{subfiles}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{booktabs}
+% make paths for sub-directories
+\makeatletter
+\providecommand*{\input@path}{}
+\g@addto@macro\input@path{{./sections//}{./sections/subsections}{./subsections}}
+\makeatother
+\usepackage{biblatex}
+\addbibresource{../../../BibTeXFiles/report1_ref.bib}
+\usepackage{hyperref}
+% break lines in verbatim environment
+\usepackage{listings}
+\lstset
+{
+basicstyle=\small\ttfamily,
+columns=flexible,
+breaklines=true
+}
+
+\title{Report 1}
+\author{Jaime Koh}
+
+\begin{document}
+
+\newpage
+\maketitle
+\tableofcontents
+\newpage
+
+\section*{Introduction}
+\markright{}
+\addcontentsline{toc}{section}{Introduction}
+
+Video synthesizers started off as ``machines that electronically manipulated a video signal or a cathode ray tube to produce abstract or distorted images'' \cite{Collopy2014}. The various video synthesizers built by John and James Whitney \cite{Patterson2009}, Eric Siegel \cite{ElectronicArtsIntermix}, Nam June Paik and Shuya Abe \cite{Furlong1983}, and Stephen Beck \cite{Beck1992} --- amongst others --- expanded the scope of methods with which visuals could be produced. The gradual digitalisation of video synthesizers introduced even more means with which one could manipulate and produce a visual signal \cite{Collopy2014}. A video synthesizer can thus be broadly understood as a tool that takes in some form of input and manipulates or utilises said input to produce a visual signal. One possible input for a video synthesizer is an audio signal. This is not an uncommon technique --- both Windows Media Player and iTunes have visualisations that react to the audio signal of the media being played. These visualisations add a visual dimension to what was once purely an aural sensory experience. \par
+
+While there are video synthesisers available on the market designed to run off a computer, such an implementation makes them cumbersome for use in a live context --- space on a stage might be sparse and having to bring a computer to performances is inconvenient, especially if that means having to set up another piece of equipment. The solution to this is to have a video synthesizer that is implemented on an embedded system. These do exist, however, most video synthesizers that are implemented on an embedded system offer rather simple graphics such as those seen in Figure \ref{fig:etc}. The state of the various video synthesizers implemented on embedded systems will be discussed in greater detail in Section \ref{sec:vsynths}.
+
+\begin{figure}[b]
+  \begin{subfigure}{0.5\textwidth}
+  \includegraphics[width = 0.9\linewidth]{Report1/etc_mode}
+  \caption{Screenshot \textit{ETC} video output}
+  \label{fig:etc_mode}
+\end{subfigure}
+\begin{subfigure}{0.5\textwidth}
+  \includegraphics[width = 0.9\linewidth]{Report1/etc_modeimages}
+  \caption{\textit{ETC} output using images}
+  \label{fig:etc_modeimages}
+\end{subfigure}
+\caption{Visuals from the \textit{ETC}}
+\label{fig:etc}
+\end{figure}
+
+\paragraph{A proposed solution}
+This project aims to address the shortcomings of the current range of video synthesizers by taking advantage of the increasingly powerful processing capabilities of single-board computers (SBCs). It aims to implement a video synthesizer on an embedded system that takes in an audio signal as input and --- using the information extracted from the audio signal --- produces and manipulates animations in real time. This video synthesizer will (1) produce complex and aesthetically pleasing visuals that react intuitively to a musician's playing while retaining control intimacy and (2) integrate smoothly into a musician's live setup. \par % Do I still need to number the parts of the above sentence?
+
+Progress of the capstone project thus far has consisted of two parts: a review of the field of audiovisual expression and how video synthesizers relate to the field, and research on frameworks and single-board computers (SBC). The purpose of this report is to document the progress of this capstone and to project how the work done thus far relates to the subsequent steps of this project. It is therefore broadly split into the two parts listed above.
+
+\chapter{Video synthesizers and the field of Audiovisual expression}
+\subfile{sections/sub_audiovisual}
+\subfile{sections/sub_videosynthesizers}
+
+\chapter{Framework and Board Reviews}
+\subfile{sections/sub_frameworkreview}
+\subfile{sections/sub_boardreview}
+
+\section*{Subsequent steps}
+\markright{}
+\addcontentsline{toc}{section}{Subsequent steps}
+
+The information gained from the review of the field of audiovisual expression and video synthesizers, as well as the framework and board reviews, are the starting points for the next steps of this project. The first task following this would be to design a visual language --- in the form of a mapping of forms of visual movement to characteristics of audio --- for the video synthesizer. The design of this visual language will be guided by the works of John Whitney as well as some of the current implementations highlighted in the framework review. Once this has been decided upon, work will begin in implementing this visual language using the chosen framework from Section \ref{sec:frameworkreview}, in a way that will respond to the parameters of a live audio input. The next logical steps after this is to embark upon user testing to shape iterative prototypes of the visual language, ultimately followed by implementing the video synthesizer in an embedded system. The selection of the SBC to use will be guided by the board review in Section \ref{sec:boardreview}. The interface of the final product which will also undergo a series of iterative prototypes guided by feedback from user tests.
+\printbibliography
+
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

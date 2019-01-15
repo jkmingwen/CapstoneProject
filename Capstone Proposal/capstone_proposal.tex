@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{Capstone Proposal}
+\author{Jaime Koh}
+\date{7 September 2018}
+
+\begin{document}
+
+\maketitle
+
+\section{General Information}
+	\textbf{Student.} Jaime Koh\\
+	\textbf{Supervisor.} Bruno Bodin, He Jingyin\\
+	\textbf{Title.} Signal processing for live visualisation of musical input\\
+	\textbf{Subject areas.} Signal processing, data visualisation, Human computer interaction, music\\
+
+\section{Introduction}
+Video synthesisers allow users to create visuals whose parameters react to an incoming signal. I find myself particularly drawn to the idea of a video synthesiser that reacts to an audio signal. This is not an uncommon technique --- both Windows Media Player and iTunes have visualisers that react to the audio signal of the media being played. These visualisations add a visual dimension to what was once purely an aural sensory experience. An implementation of a video synthesiser on an embedded system in an effects pedal interface provides musicians with the option of augmenting their live music performances with a device they can easily control on stage.
+
+\subsection{The Problem}
+There are a variety of video synthesisers available on the market designed to run off a computer, however, the computer makes them cumbersome for use in a live context. Of those that are implemented on an embedded system, most require musicians to split their audio output in some way in order to send a signal into the video synthesiser while running out into their amplifier or PA system. Furthermore, the current visualisations available on most video synthesisers consist of rather simple graphics.\footnotemark
+
+\footnotetext{Critter \& Guitari's ETC is likely one of the most well developed video synthesisers on the market right now implemented in an embedded system. Yet, it seems similarly limited to a range of rather simplistic visualisations.}
+
+The aim of this project is to implement and evaluate a video synthesiser in an embedded system that (1) produces complex, aesthetically pleasing, visuals that react intuitively to a musician's playing while retaining control intimacy and (2) integrates smoothly into a musician's live setup.
+
+\section{Scope}
+The primary aim of this project is to experience and practice the process of development and iterative prototyping on a long term project. The project will therefore involve producing a series of prototypes of increasing complexity. The development process will involve surveying musicians to (1) evaluate the effectiveness of various visuals in adequately capturing the essence of their playing and (2) to judge the intuitiveness of the hardware interface. These surveys will guide a process of iterative prototyping of various visualisations and interfaces before settling on a final iteration. The goal of this project is not necessarily to study the intricacies of software development. Rather, the goal is to learn the basic principles of embedded systems, software design and interface design and how it culminates in a product. It also includes a degree of self directed learning. The hope is that this capstone project will provide me with the transferable skill of understanding the full process of prototyping and implementing a product intended for a specific market.
+
+\section{Expectations}
+The success of this project will be evaluated through user testing as well as the extent to which I am able to deliver the product I set out to produce. Musicians who are unfamiliar with the concept of video synthesis should be able to discover, with minimal guidance, the features and uses of the product. The main milestones of the project are:
+\begin{enumerate}
+	\item A prototype of rendered video that reacts to changes in parameters
+	\item Having said rendered video react to an audio input
+	\item Implementation on an embedded system
+\end{enumerate}
+
+\section{Challenges}
+%	\begin{itemize}
+%		\item Latency
+%		\item Responsiveness \& intuitiveness
+%		\item Project scale
+%	\end{itemize}
+	\subsection{Latency}
+		As it is intended for live performances, low latency between the audio input and the resulting video output is necessary to maintain a sense of control intimacy. The appropriate hardware needs to be selected and sufficiently efficient algorithms are necessary to generate visuals in time. 
+	\subsection{Responsiveness \& intuitiveness}
+		The video synthesiser also needs to react appropriately to the range of timbres produced by the instrument being played with an interface that is easy to understand and learn. Some form of signal processing will be implemented in order to recognise and respond to changes in timbre. User testing will be used to evaluate the intuitiveness of the interface. 
+	\subsection{Project scale}
+		Finally, working on both hardware and software --- as well as evaluating the efficacy of the code written, hardware chosen, and visuals produced --- might mean that the project is too ambitious for the time constraints of the capstone. In order to deal with this, milestones will be set of increasingly complex prototypes so that even if I am unable to reach my end goal, I will still have a working product.
+
+\section{Time Allocation}
+Weekly meetings: Thursdays, 1100 - 1200
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

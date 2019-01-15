@@ -1,0 +1,33 @@
+\documentclass[../../main_report2.tex]{subfiles}
+
+\begin{document}
+
+\subsection{Critter \& Guitari \textit{ETC}}
+Critter \& Guitari's \textit{ETC} implements a series of ``modes'' that users cycle through in order to select different presets altering the kinds of visuals generated. An example of the visuals generated can be seen in Figure \ref{fig:etc1}.
+
+\begin{figure}[h]
+  \begin{subfigure}{0.5\textwidth}
+  \includegraphics[width = 0.9\linewidth]{Report2/etc_mode1}
+  \caption{\textit{ETC} output in ``scope mode''}
+  \label{fig:etc_mode1}
+\end{subfigure}
+\begin{subfigure}{0.5\textwidth}
+  \includegraphics[width = 0.9\linewidth]{Report2/etc}
+  \caption{The \textit{ETC} interface}
+  \label{fig:etc_interface}
+\end{subfigure}
+\caption{\textit{ETC} visuals and interface}
+\label{fig:etc1}
+\end{figure}
+
+These ``modes'' are classified into two categories: ``scope mode'' and ``trigger mode''. These two modes visualise and process an audio signal in different ways. ``Scope mode'' tracks the waveform of the audio signal in a manner similar to that of an oscilloscope. The visuals on screen are continuously updated in response to the variations in the waveforms of the audio input. This was likely accomplished by tracking the overall volume of the signal by taking the root mean square (RMS) of the amplitudes of the incoming samples and mapping the output of that operation to the visual elements displayed. ``Trigger mode'', on the other hand, tracks the volume of the incoming audio signal and updates the visual when the volume passes a certain threshold \cite{ETCmanual}. It likely uses a similar technique to ``scope mode'' or some form of onset detection. The \textit{ETC} also allows users to interface with it through knobs (as seen in Figure \ref{fig:etc_interface}) that tweak the threshold of ``trigger mode'' as well as the various parameters of the visuals --- such as colour. It also has several buttons that allow users to save and load presets. \par
+
+There are two things that make the \textit{ETC} unique amongst most of the other video synthesizers surveyed. The first is that it is designed to allow it to be played as an instrument \cite{ETCmanual}. The \textit{ETC} can take in Musical Intstrument Digital Interface (MIDI) input so that a MIDI controller can be plugged in to act as an interface that produces video output instead of audio output. MIDI is a protocol for conveying musical performance information as electronic data \cite{midispecs} --- these typically come in the form of note on/off signals as well as values from 0 to 127 to represent various parameters of the note played such as volume. The controls on its front panel, as seen in Figure \ref{fig:etc_interface} also provide users with a large range of control of the synthesizer if they choose to play it as an instrument. They could, for example, manually trigger a change in the visuals as if the volume had passed the threshold set in ``trigger mode''. The second is that the ``modes'' on the \textit{ETC} are fully customisable --- users can utilise this feature by editing the code that generates the visual output on the device. Presumably in an attempt to reduce the learning curve of users coding their own visuals, Critter \& Guitari coded the various modes on the \textit{ETC} in Python --- rendering visuals with the graphics library of Pygame \cite{ETCmanual}. It is this feature in particular that might limit the complexity of the visuals that the \textit{ETC} is capable of. \par
+
+This capstone project aims to implement a video synthesizer that produces graphics that are more complex than what the \textit{ETC} is capable of. It also aims to extract and utilise more low-level features from the audio signal than just overall volume.
+
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../../main_report2"
+%%% End:

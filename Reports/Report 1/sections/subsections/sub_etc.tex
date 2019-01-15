@@ -1,0 +1,31 @@
+\documentclass[../../main_report1.tex]{subfiles}
+
+\begin{document}
+
+\subsection{Critter \& Guitari \textit{ETC}}
+Critter \& Guitari's \textit{ETC} implements a series of ``modes'' that users cycle through in order to select different presets altering the kinds of visuals generated. An example of the visuals generated can be seen in Figure \ref{fig:etc1}.
+
+\begin{figure}[h]
+  \begin{subfigure}{0.5\textwidth}
+  \includegraphics[width = 0.9\linewidth]{Report1/etc_mode1}
+  \caption{\textit{ETC} output in ``scope mode''}
+  \label{fig:etc_mode1}
+\end{subfigure}
+\begin{subfigure}{0.5\textwidth}
+  \includegraphics[width = 0.9\linewidth]{Report1/etc}
+  \caption{The interface of the \textit{ETC}}
+  \label{fig:etc_interface}
+\end{subfigure}
+\caption{\textit{ETC} visuals and interface}
+\label{fig:etc1}
+\end{figure}
+
+These ``modes'' are classified into two categories: \textit{scope mode} and \textit{trigger mode}. These two modes visualise and process an audio signal in different ways. \textit{Scope mode} tracks the waveform of the audio signal in a manner similar to that of an oscilloscope. The visuals on screen are continuously updated in response to the variations in the waveforms of the audio input. \textit{Trigger mode}, on the other hand, tracks the volume of the incoming audio signal and updates the visual when the volume passes a certain threshold \cite{ETCmanual}. The \textit{ETC} also allows users to interface with it through knobs (as seen in Figure \ref{fig:etc_interface}) that allow users to tweak the threshold of \textit{trigger mode} as well as the various parameters of the visuals --- such as colour. It also has several buttons that allow users to save and load their presets. \par
+
+There are two things that make the \textit{ETC} unique amongst most of the other video synthesizers surveyed. The first is that it is designed to allow it to be played as an instrument \cite{ETCmanual}. The \textit{ETC} can take in MIDI input so that a MIDI controller can be plugged in to act as an interface that produces video output instead of audio output. The controls on its front panel, as seen in Figure \ref{fig:etc_interface} also provide users with a large range of control of the synthesizer if they choose to play it as an instrument; they could, for example, manually trigger a change in the visuals as if the volume had passed the threshold set in \textit{trigger mode}. The second is that the ``modes'' on the \textit{ETC} are fully customisable by users by editing the Python code that generates the visual output on the device. Presumably in an attempt to reduce the learning curve of users coding their own visuals, Critter \& Guitari coded the various modes on the \textit{ETC} in Python --- rendering visuals with the graphics library of Pygame \cite{ETCmanual}. It is this feature in particular that might limit the complexity of the visuals that the \textit{ETC} is capable of.
+
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../../main_report1"
+%%% End:

@@ -1,10 +1,11 @@
-# Ignore non-relevant files for Latex reports
+### Ignore non-relevant files for Latex ###
 **/graphics
 **/auto
 
+
 .DS_STORE
 
-# Ignore XCode Projects:
+### Ignore XCode Projects ###
 # Cinder Projects
 **/xcode
 **/resources

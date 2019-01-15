@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{listings} % this is to allow code formatting in document
+\usepackage{subfiles}
+\usepackage{subcaption}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{biblatex}
+\addbibresource{../../../BibTeXFiles/capstone_ref.bib}
+\graphicspath{ {graphics/} }
+
+\title{Framework Review}
+\author{Jaime Koh}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+The purpose of this document is to record my experiences with the various frameworks available for my capstone project. As I plan to build a video synthesiser for audiovisual expression, the frameworks need to facilitate programming animations. They will also need to facilitate taking in an audio signal as a parameter to affect the animation in real time. With that said, under the advice of my capstone advisors, I have narrowed down my choices to the following five frameworks:
+
+\begin{enumerate}
+\item openFrameworks
+\item Cinder
+\item Juce
+\item FLAM3
+\item OPENRNDR
+\end{enumerate}
+
+With each framework, I will assess the \textbf{learning curve} of the framework; its \textbf{popularity}; as well as highlight some related \textbf{existing projects} using them. It is important that the learning curve of the given framework is not too steep as I cannot afford to place all my efforts on learning a framework while neglecting the progress of the project as a whole. The popularity of the framework might cue me in on how easy it is to pick up and, more importantly, the chance of having compatible code with future collaborators. Finally, studying its implementations in existing projects should give me a good idea of what each framework is capable of. Researching exisiting audiovisual projects that utilise each framework also allow me to derive some inspiration about what I could implement in my own video synthesiser --- these thoughts will be recorded down in each section. The goal of this review is to come to a decision on which framework to use for the duration of this project and the hope is that these assessments would lead to making the best choice.
+
+\subfile{sections/sub_of}
+\subfile{sections/sub_cinder}
+\subfile{sections/sub_juce}
+\subfile{sections/sub_openrndr}
+\subfile{sections/sub_flam3}
+
+\section{Deciding on a framework}
+After working with these frameworks, I find myself leaning towards openFrameworks over the others for several reasons. The first reason is its popularity. openFrameworks is probably the most popular of the frameworks chosen for review. Consequentially, its forums are much more active and thus offer a larger community to look towards for both inspiration and help. This is what sets it apart from Cinder, which is the framework most comparable to openFrameworks. openFrameworks also provides the graphics APIs necessary to produce a complex animation that reacts to an audio input. While JUCE would likely be a more suitable candidate if my focus were purely on audio processing, the framerate issues with the simple visualiser implementation in JUCE made it seem as though the framework might not be as suitable for more complex animations. Finally, while promising, OPENRNDR is still a new framework without an API to handle audio processing. FLAM3 would not be a suitable framework for the reasons described in its corresponding ``Issues'' section. Therefore, given my experiences working with these five frameworks, I feel like openFrameworks would be best framework on which to develop this project.
+
+\printbibliography
+
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
