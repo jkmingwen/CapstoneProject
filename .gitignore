@@ -18,11 +18,13 @@ JUCESimpleVSynth.jucer
 
 # openFrameworks Projects
 **/exploringSoundStream/Makefile
+**/linesSketch/Makefile
 Project.xcconfig
 addons.make
 **/bin
 config.make
 **/exploringSoundStream.xcodeproj
+**/linesSketch.xcodeproj
 openFrameworks-Info.plist
 
 
