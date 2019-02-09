@@ -4,7 +4,7 @@
 //--------------------------------------------------------------
 void ofApp::setup()
 {
-    int bufferSize = 256; // set buffer size
+    int bufferSize = 1024; // set buffer size
     ofSoundStreamSettings settings; // create ofSoundStreamSettings object
     ofBackground(0, 0, 0);
 
@@ -32,56 +32,6 @@ void ofApp::setup()
     settings.numInputChannels = 2; // stereo
     settings.bufferSize = bufferSize;
     soundStream.setup(settings);
-
-    // FFTW3 test setup
-    data = (fftw_complex*) fftw_malloc(sizeof(fftw_complex) * SIZE);
-    fft_result = (fftw_complex*) fftw_malloc(sizeof(fftw_complex) * SIZE);
-    ifft_result = (fftw_complex*) fftw_malloc(sizeof(fftw_complex) * SIZE);
-
-    plan_forward = fftw_plan_dft_1d(SIZE, data, fft_result,
-				    FFTW_FORWARD, FFTW_ESTIMATE);
-    plan_backward = fftw_plan_dft_1d(SIZE, data, ifft_result,
-				     FFTW_BACKWARD, FFTW_ESTIMATE);
-
-    // FFTW3 Test
-    for(i = 0 ; i < SIZE ; i++)
-    {
-	data[i][0] = 1.0; // stick your audio samples in here
-	data[i][1] = 0.0; // use this if your data is complex valued
-    }
- 
-
-    for(i = 0; i < SIZE; i++)
-    {
-	fprintf(stdout, "data[%d] = { %2.2f, %2.2f }\n",
-		i, data[i][0], data[i][1]);
-    }
- 
-    fftw_execute(plan_forward);
- 
-
-    for(i = 0; i < SIZE; i++)
-    {
-	fprintf(stdout, "fft_result[%d] = { %2.2f, %2.2f }\n",
-		i, fft_result[i][0], fft_result[i][1]);
-    }
- 
-    fftw_execute(plan_backward);
- 
-
-    for(i = 0; i < SIZE; i++)
-    {
-	fprintf(stdout, "ifft_result[%d] = { %2.2f, %2.2f }\n",
-		i, ifft_result[i][0] / SIZE, ifft_result[i][1] / SIZE);
-    }
- 
-
-    fftw_destroy_plan(plan_forward);
-    fftw_destroy_plan(plan_backward);
- 
-    fftw_free(data);
-    fftw_free(fft_result);
-    fftw_free(ifft_result);
 }
 
 //--------------------------------------------------------------
@@ -171,15 +121,26 @@ void ofApp::draw()
 		      mass[particle] * 1000 + (100 * scaledVol),
 		      mass[particle] * 1000 + (100 * scaledVol));
     }
+
+    STFT(left, 1024, 1024, 128, output_result);
+    for (int i = 0; i < 1024; i++)
+    {
+        ofDrawLine(200 + i, 400,
+               200 + i, 400 - output_result[i] * 50.0f);
+    }
     
-    
+//     for (int i = 0; i < 1024; i++)
+//     {
+//         ofDrawLine(200, i,
+//                    200 + i, 400 - output_result[i] * 100.0f);
+//     }
 }
 
 void ofApp::audioIn(ofSoundBuffer &input)
 {
     float currentVol = 0.0;
-    
     int numCounted = 0;
+    
     // calculate rms of sample volumes
     for (int i = 0; i < input.getNumFrames(); i++, numCounted+=2)
     {
@@ -281,28 +242,40 @@ void ofApp::dragEvent(ofDragInfo dragInfo){
 // Creates a hamming window of windowLength samples in buffer
 void ofApp::hamming(int windowLength, float *buffer)
 {
+    // Hamming
     for (int i = 0; i < windowLength; i++)
     {
-	buffer[i] = 0.54 - (0.46 * cos(2 * PI * (i / ((windowLength - 1) * 1.0))));
+	buffer[i] = 0.54 - 0.46 * cos(2 * PI * i / (windowLength - 1));
     }
+
+    // // Blackman
+    // for (int i = 0; i < windowLength; i++)
+    // {
+    // 	buffer[i] = (0.43 - (0.50 * cos(2 * PI * i / (windowLength - 1)))
+    // 		     + (0.077 * cos(4 * PI * i / (windowLength - 1))));
+    // }
+    // // Rectangular
+    // for (int i = 0; i < windowLength; i++)
+    // {
+    // 	buffer[i] = 1.0;
+    // }
 }
 
 //--------------------------------------------------------------
-void ofApp::STFT(vector <float> *signal, int signalLength,
-		 int windowSize, int hopSize, vector <float> output_result)
+void ofApp::STFT(vector <float> signal, int signalLength,
+		 int windowSize, int hopSize, vector <float> &output_result)
 {
-    fftw_complex    *data, *fft_result, *ifft_result;
+    fftw_complex    *data_input, *fft_output;
     fftw_plan       plan_forward, plan_backward;
-    int             i;
 
-    /* data: stores data we want to perform FFT on
-       fft_result: stores results of FFT on real values
-       ifft_result: stores results of FFT on imaginary values */
-    data = (fftw_complex*) fftw_malloc(sizeof(fftw_complex) * windowSize);
-    fft_result = (fftw_complex*) fftw_malloc(sizeof(fftw_complex) * windowSize);
-    ifft_result = (fftw_complex*) fftw_malloc(sizeof(fftw_complex) * windowSize);
+    /* data_input: stores data we want to perform FFT on
+       fft_output: stores results of FFT on real values
+       We are only interested in the real components */
+    data_input = (fftw_complex*) fftw_malloc(sizeof(fftw_complex) * windowSize);
+    fft_output = (fftw_complex*) fftw_malloc(sizeof(fftw_complex) * windowSize);
  
-    plan_forward = fftw_plan_dft_1d(windowSize, data, fft_result, FFTW_FORWARD, FFTW_ESTIMATE);
+    plan_forward = fftw_plan_dft_1d(windowSize, data_input, fft_output,
+				    FFTW_FORWARD, FFTW_ESTIMATE);
  
     // Create a hamming window of appropriate length
     float window[windowSize];
@@ -323,13 +296,13 @@ void ofApp::STFT(vector <float> *signal, int signalLength,
 	    if(readIndex < signalLength)
 	    {
 		// Window signal by multiplying by corresponding window element
-		data[i][0] = (*signal)[readIndex] * window[i]; 
-		data[i][1] = 0.0; 
+		data_input[i][0] = signal[readIndex] * window[i]; 
+		data_input[i][1] = 0.0; 
 	    }
 	    else // we have read beyond the signal, so zero-pad it
 	    {
-		data[i][0] = 0.0; 
-		data[i][1] = 0.0; 
+		data_input[i][0] = 0.0; 
+		data_input[i][1] = 0.0; 
 		bStop = 1;
 	    }
 	}
@@ -337,32 +310,31 @@ void ofApp::STFT(vector <float> *signal, int signalLength,
 	// Perform the FFT on our chunk
 	fftw_execute(plan_forward);
   
-	/* Uncomment to see the raw-data output from the FFT calculation
-	   std::cout << "Column: " << chunkPosition << std::endl;
-	   for(i = 0 ; i < windowSize ; i++ ) {
-	   fprintf( stdout, "fft_result[%d] = { %2.2f, %2.2f }\n",
-	   i, fft_result[i][0], fft_result[i][1] );
-	   }
-	*/
+	/* Uncomment to see the raw-data output from the FFT calculation */
+//	std::cout << "Column: " << chunkPosition << std::endl;
+//    for(int i = 0; i < windowSize; i++)
+//    {
+//        fprintf(stdout, "fft_output[%d] = { %2.2f, %2.2f }\n",
+//            i, fft_output[i][0], fft_output[i][1]);
+//    }
   
   
-	// Copy the first (windowSize/2 + 1) data points into your spectrogram.
+	// Copy the first (windowSize/2 + 1) data points into spectrogram.
 	// We do this because the FFT output is mirrored about the nyquist 
-	// frequency, so the second half of the data is redundant. This is how
-	// Matlab's spectrogram routine works.
-	for (i = 0; i < windowSize/2 + 1; i++)
+	// frequency, so the second half of the data is redundant.
+    output_result.resize(windowSize);
+	for (i = 0; i < windowSize + 1; i++)
 	{
-	    output_result[i] = fft_result[i][0];
-	    output_result[i] = fft_result[i][1];
+	    output_result[i] = fft_output[i][0];
+	    // output_result[i] = fft_output[i][1];
 	}
 
-	chunkPosition += hopSize;
+	chunkPosition += hopSize; // move to next chunk position
   
     } // while loop ends here
  
     fftw_destroy_plan(plan_forward);
  
-    fftw_free(data);
-    fftw_free(fft_result);
-    fftw_free(ifft_result);
+    fftw_free(data_input);
+    fftw_free(fft_output);
 }

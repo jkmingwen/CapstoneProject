@@ -23,8 +23,8 @@ public:
     void gotMessage(ofMessage msg);
     void addNewParticle();
     void hamming(int windowLength, float *buffer);
-    void STFT(vector <float> *signal, int signalLength, int windowSize,
-	      int hopSize, vector <float> output_result);
+    void STFT(vector <float> signal, int signalLength, int windowSize,
+              int hopSize, vector <float> &output_result);
     
     // Function for reading audio input
     void audioIn(ofSoundBuffer &input); // ofSoundBuffer object as input
@@ -56,8 +56,8 @@ public:
 
     // FFTW3 test variables
     int SIZE = 4; // sample size has to be powers of 2
-
     fftw_complex *data, *fft_result, *ifft_result;
     fftw_plan plan_forward, plan_backward;
     int i;
+    vector <float> output_result;
 };
