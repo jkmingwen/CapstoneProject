@@ -37,3 +37,8 @@ of_v0.10.1_osx_release/libs/**
 of_v0.10.1_osx_release/other/**
 of_v0.10.1_osx_release/projectGenerator/**
 of_v0.10.1_osx_release/scripts/**
+
+# Ignore openFrameworks Projects (general)
+of_v0.10.1_osx_release/apps/*/*/Makefile
+of_v0.10.1_osx_release/apps/*/*/*.png
+of_v0.10.1_osx_release/apps/*/*/*.xcodeproj
