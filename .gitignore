@@ -28,3 +28,12 @@ config.make
 openFrameworks-Info.plist
 
 
+### Ignore openFrameworks library ###
+of_v0.10.1_osx_release/*.md
+of_v0.10.1_osx_release/addons/**
+of_v0.10.1_osx_release/docs/**
+of_v0.10.1_osx_release/examples/**
+of_v0.10.1_osx_release/libs/**
+of_v0.10.1_osx_release/other/**
+of_v0.10.1_osx_release/projectGenerator/**
+of_v0.10.1_osx_release/scripts/**
