@@ -82,7 +82,7 @@ void ofApp::draw()
         for (unsigned int i = 0; i < right.size(); i++)
         {
             ofDrawCircle(i*3 + ofGetWidth()/6, 50 - right[i]*300.0f, (scaledVol * scaledVol * 150));
-    
+
         }
         ofEndShape(false); // false arg tells it not to auto close shape
     ofPopMatrix();
