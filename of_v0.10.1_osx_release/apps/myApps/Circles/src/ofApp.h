@@ -24,15 +24,17 @@ public:
     // Headers for audio input
     void audioIn(ofSoundBuffer &input);
     
+    ofVec2f windowCenter; // window center coordinates
+    
     vector <float> left;
     vector <float> right;
     vector <float> volHistory;
-    
     int bufferCounter;
     int drawCounter;
-    
     float smoothedVol;
     float scaledVol;
+    
+    int circleSpacing;
     
     ofSoundStream soundStream;
 };

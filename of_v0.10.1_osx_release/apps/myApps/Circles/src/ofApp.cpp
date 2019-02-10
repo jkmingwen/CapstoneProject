@@ -3,6 +3,8 @@
 //--------------------------------------------------------------
 void ofApp::setup()
 {
+    windowCenter.set(ofGetWidth()/2, ofGetHeight()/2);
+    circleSpacing = 3;
     int bufferSize = 256; // set buffer size
     ofSoundStreamSettings settings; // create ofSoundStreamSettings object
     ofBackground(0, 0, 0);
@@ -15,7 +17,7 @@ void ofApp::setup()
     left.assign(bufferSize, 0.0);
     right.assign(bufferSize, 0.0);
     volHistory.assign(400, 0.0);
-
+    
     // initialising ofSoundStreamSettings
     auto devices = soundStream.getMatchingDevices("UR22"); // <- name of input device
     if (!devices.empty())
@@ -53,39 +55,19 @@ void ofApp::draw()
     //ofDrawBitmapString("Smoothed average vol (0-100): " + ofToString(smoothedVol), 4, 30);
     //string reportString = "buffers received: "+ofToString(bufferCounter)+"\n";
     //ofDrawBitmapString(reportString, 4, 60);
-
-//    // left channel
-//    ofPushStyle(); // isolates graphics changes (i.e. colour)
-//    ofPushMatrix(); // isolates coordinate changes (i.e. translate)
-//        ofSetColor(200);
-//        ofTranslate(256, 385);
-//        ofSetLineWidth(3);
-//        ofNoFill();
-//        ofBeginShape();
-//        for (unsigned int i = 0; i < left.size(); i++)
-//        {
-//            ofDrawCircle(i*2, 100 - left[i]*300.0f, (scaledVol * scaledVol * 150));
-//        }
-//        ofEndShape(false); // false arg tells it not to auto close shape
-//    ofPopMatrix();
-//    ofPopStyle();
     
-    // right channel: use only right channel as that's where the audio interface is
+    // use only right channel as that's where the audio interface is
     // feeding in input
     ofPushStyle(); // isolates graphics changes (i.e. colour)
-    ofPushMatrix(); // isolates coordinate changes (i.e. translate)
-        ofSetColor(200);
-        ofTranslate(150, 385);
-        ofSetLineWidth(1);
-        ofNoFill();
-        ofBeginShape();
-        for (unsigned int i = 0; i < right.size(); i++)
-        {
-            ofDrawCircle(i*3 + ofGetWidth()/6, 50 - right[i]*300.0f, (scaledVol * scaledVol * 150));
-
-        }
-        ofEndShape(false); // false arg tells it not to auto close shape
-    ofPopMatrix();
+    ofSetColor(200);
+    ofSetLineWidth(1);
+    ofNoFill();
+    for (unsigned int i = 0; i < right.size(); i++)
+    {
+        ofDrawCircle(windowCenter.x - (circleSpacing * right.size())/2 + (circleSpacing * i),
+                     windowCenter.y - right[i]*300.0f,
+                     (scaledVol * scaledVol * 150));
+    }
     ofPopStyle();
 }
 
@@ -116,55 +98,56 @@ void ofApp::audioIn(ofSoundBuffer &input)
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key){
-
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseMoved(int x, int y ){
-
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button){
-
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
-
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseReleased(int x, int y, int button){
-
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseEntered(int x, int y){
-
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseExited(int x, int y){
-
+    
 }
 
 //--------------------------------------------------------------
-void ofApp::windowResized(int w, int h){
-
+void ofApp::windowResized(int w, int h)
+{
+    windowCenter.set(w/2, h/2);
 }
 
 //--------------------------------------------------------------
 void ofApp::gotMessage(ofMessage msg){
-
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::dragEvent(ofDragInfo dragInfo){ 
-
+    
 }
