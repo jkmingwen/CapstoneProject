@@ -35,6 +35,6 @@ public:
     float scaledVol;
     
     int circleSpacing;
-    
+    // float rotation;
     ofSoundStream soundStream;
 };

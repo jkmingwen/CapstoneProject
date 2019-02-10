@@ -5,6 +5,7 @@ void ofApp::setup()
 {
     windowCenter.set(ofGetWidth()/2, ofGetHeight()/2);
     circleSpacing = 3;
+    // rotation = 0.0;
     int bufferSize = 256; // set buffer size
     ofSoundStreamSettings settings; // create ofSoundStreamSettings object
     ofBackground(0, 0, 0);
@@ -45,6 +46,7 @@ void ofApp::update()
     {
         volHistory.erase(volHistory.begin(), volHistory.begin()+1);
     }
+    // rotation += 30.0;
 }
 
 //--------------------------------------------------------------
@@ -56,19 +58,24 @@ void ofApp::draw()
     //string reportString = "buffers received: "+ofToString(bufferCounter)+"\n";
     //ofDrawBitmapString(reportString, 4, 60);
     
-    // use only right channel as that's where the audio interface is
-    // feeding in input
+    ofPushMatrix();
     ofPushStyle(); // isolates graphics changes (i.e. colour)
     ofSetColor(200);
     ofSetLineWidth(1);
     ofNoFill();
+    ofTranslate(windowCenter); // translate to window center
+    ofBeginShape();
+    // ofRotateZDeg(rotation);
+    // use only right channel as that's where the audio interface is
     for (unsigned int i = 0; i < right.size(); i++)
     {
-        ofDrawCircle(windowCenter.x - (circleSpacing * right.size())/2 + (circleSpacing * i),
-                     windowCenter.y - right[i]*300.0f,
+        ofDrawCircle(circleSpacing * (-1.0 * right.size()/2 + i),
+                     -right[i]*300.0f,
                      (scaledVol * scaledVol * 150));
     }
+    ofEndShape();
     ofPopStyle();
+    ofPushMatrix();
 }
 
 //--------------------------------------------------------------
