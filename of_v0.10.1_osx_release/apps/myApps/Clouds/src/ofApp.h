@@ -45,6 +45,9 @@ public:
     vector <float> positionY;
     vector <float> velocityX;
     vector <float> velocityY;
+    vector <ofVec2f> position;
+    vector <ofVec2f> velocity;
+
     int cloudDensity; // this will determine how dense the particle cloud is
     float frictionCoef; // how quickly particles slow down
 

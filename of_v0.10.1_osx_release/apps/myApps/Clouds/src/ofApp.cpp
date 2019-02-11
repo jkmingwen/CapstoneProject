@@ -6,10 +6,10 @@ void ofApp::setup()
     int bufferSize = 1024; // set buffer size
     ofSoundStreamSettings settings; // create ofSoundStreamSettings object
     ofBackground(0, 0, 0);
-
+    
     cloudDensity = 320; // set cloud density
     frictionCoef = 0.99; // set friction coefficient
-
+    
     bufferCounter = 0;
     drawCounter = 0;
     smoothedVol = 0.0;
@@ -18,7 +18,7 @@ void ofApp::setup()
     left.assign(bufferSize, 0.0);
     right.assign(bufferSize, 0.0);
     volHistory.assign(400, 0.0);
-
+    
     // initialising ofSoundStreamSettings
     auto devices = soundStream.getMatchingDevices("UR22"); // <- name of input device
     if (!devices.empty()) // sets to first input device as backup
@@ -41,7 +41,7 @@ void ofApp::update()
     // record the volume into an array
     volHistory.push_back(scaledVol);
     
-    // if we are bigger the the size we want to record, we drop the oldest value
+    // if we are bigger than the size we want to record, we drop the oldest value
     if( volHistory.size() >= 400 )
     {
         volHistory.erase(volHistory.begin(), volHistory.begin() + 1);
@@ -52,77 +52,67 @@ void ofApp::update()
 void ofApp::draw()
 {
     ofSetColor(255, 255, 255);
-
+    
     for (int particleA = 0; particleA < mass.size(); particleA++)
     {
-	// initialise particle acceleration in x and y direction as 0
-        int accelerationX = 0;
-        int accelerationY = 0;
+        // initialise particle acceleration in x and y direction as 0
+        ofVec2f acceleration(0.0, 0.0);
         
         for (int particleB = 0; particleB < mass.size(); particleB++)
-	{
+        {
             if (particleA != particleB) // if they are different particles
-	    {
-		// distance between particles in x and y axes
-                int distanceX = positionX[particleB] - positionX[particleA];
-                int distanceY = positionY[particleB] - positionY[particleA];
-		// using pythagoras' theorem, calculate distance betw particles
-                int distance = sqrt(distanceX * distanceX + distanceY * distanceY);
+            {
+                // distance between particles in x and y axes
+                ofVec2f coord_dist = position[particleB] - position[particleA];
+                // calculate distance between particles
+                float distance = position[particleB].distance(position[particleA]);
                 if (distance < 1) distance = 1; // keep positive
-
-		/* calculate force enacted on particle:
-		   particles are generally attracted to each other
-		   the moment the distance betw 2 particles is < cloudDensity,
-		   they repel (i.e. they experience a negative force). 
-		   higher distance -> higher force */
-		/* NOTE: Slight bug here: when the particles come to a stop, 
-		   audio input won't make them start again. Set "distance"
-		   variable to be the edge of the particle (center pos + radius)
-		   to fix. */
-                float force = (distance - cloudDensity) *
-		    ((mass[particleB] + scaledVol) / distance);
-                accelerationX += force * distanceX;
-                accelerationY += force * distanceY;
+                
+                /* calculate force enacted on particle:
+                 particles are generally attracted to each other
+                 the moment the distance betw 2 particles is < cloudDensity,
+                 they repel (i.e. they experience a negative force).
+                 higher distance -> higher force */
+                /* NOTE: Slight bug here: when the particles come to a stop,
+                 audio input won't make them start again. Set "distance"
+                 variable to be the edge of the particle (center pos + radius)
+                 to fix. */
+                float force = (distance - cloudDensity) * ((mass[particleB] + scaledVol) / distance);
+                acceleration += (force * coord_dist);
             }
         }
-
-	// at every iteration, the particle loses velocity, hence frictionCoef
-	// this "friction coefficient" could be used to represent tempo
-	velocityX[particleA] = (velocityX[particleA] * frictionCoef +
-				accelerationX * mass[particleA]);
-	velocityY[particleA] = (velocityY[particleA] * frictionCoef +
-				accelerationY * mass[particleA]);
+        
+        // at every iteration, the particle loses velocity, hence frictionCoef
+        // this "friction coefficient" could be used to represent tempo
+        velocity[particleA] = (velocity[particleA] * frictionCoef) + (acceleration * mass[particleA]);
     }
     
     for (int particle = 0; particle < mass.size(); particle++)
     {
-	// shift particle position by its given velocity in that direction
-	positionX[particle] += velocityX[particle];
-	positionY[particle] += velocityY[particle];
-		
-	/* if the particles are not within the dimensions of the window.
-	   if they're not, apply a negative velocity to the particles. 
-	   this negative velocity is multiplied by 2 in order to push
-	   the given particle back in to the window rantehr than just hold
-	   it in position 
-	   Potential fix: 
-	   slowly kill particles that are on the edges for too long */
-	if (positionX[particle] + velocityX[particle] > ofGetWidth() ||
-	    positionX[particle] + velocityX[particle] < 0)
-	{
-	    positionX[particle] -= 2 * velocityX[particle];
-	}
-	else if (positionY[particle] + velocityY[particle] > ofGetWidth() ||
-		 positionY[particle] + velocityY[particle] < 0)
-	{
-	    positionY[particle] -= 2 * velocityY[particle];
-	}
+        // shift particle position by its given velocity in that direction
+        position[particle] += velocity[particle];
+        /* if the particles are not within the dimensions of the window.
+         if they're not, apply a negative velocity to the particles.
+         this negative velocity is multiplied by 1.01 in order to push
+         the given particle back in to the window rather than just hold
+         it in position
+         Potential fix:
+         slowly kill particles that are on the edges for too long */
+        if (position[particle].x + velocity[particle].x > ofGetWidth() ||
+            position[particle].x + velocity[particle].x < 0)
+        {
+            position[particle].x -= 1.01 * velocity[particle].x;
+        }
+        else if (position[particle].y + velocity[particle].y > ofGetHeight() ||
+                 position[particle].y + velocity[particle].y < 0)
+        {
+            position[particle].y -= 1.01 * velocity[particle].y;
+        }
         
-        // right now the volume of the signal is linked only to size of particle
-        ofDrawEllipse(positionX[particle],
-		      positionY[particle],
-		      mass[particle] * 1000 + (100 * scaledVol),
-		      mass[particle] * 1000 + (100 * scaledVol));
+        // volume of the signal is linked to size of particle
+        ofDrawEllipse(position[particle],
+                      mass[particle] * 1000 + (100 * scaledVol),
+                      mass[particle] * 1000 + (100 * scaledVol));
     }
     
 }
@@ -158,26 +148,24 @@ void ofApp::addNewParticle()
     // when adding new particle...
     mass.push_back(ofRandom(0.003, 0.03)); // set random mass
     // at position of mouse click
-    positionX.push_back(ofGetMouseX());
-    positionY.push_back(ofGetMouseY());
+    position.push_back(ofVec2f(ofGetMouseX(), ofGetMouseY()));
     // no velocity (no initial speed)
-    velocityX.push_back(0);
-    velocityY.push_back(0);
+    velocity.push_back(ofVec2f(0, 0));
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key){
-
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseMoved(int x, int y ){
-
+    
 }
 
 //--------------------------------------------------------------
@@ -194,30 +182,30 @@ void ofApp::mousePressed(int x, int y, int button)
 
 //--------------------------------------------------------------
 void ofApp::mouseReleased(int x, int y, int button){
-
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseEntered(int x, int y){
-
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseExited(int x, int y){
-
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::windowResized(int w, int h){
-
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::gotMessage(ofMessage msg){
-
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::dragEvent(ofDragInfo dragInfo){ 
-
+    
 }
