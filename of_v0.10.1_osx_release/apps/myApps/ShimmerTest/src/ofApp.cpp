@@ -56,15 +56,15 @@ void ofApp::update()
 //--------------------------------------------------------------
 void ofApp::draw()
 {
-    //    ofDrawBitmapString(rmsVol * 100, 20, 20);
     for (int i = 0; i <= vecField.size() -1; i++)
     {
         float flow = ofSignedNoise(vecField[i].x * s, vecField[i].y * s, zoff * s);
-        // vecFieldRot[i].rotate(ofMap(flow, -1.0, 1.0, 0, 720), vecField[i]);
         vecFieldRot[i].rotate(flow + (rmsVol * 100), vecField[i]);
     }
     for (int i = 0; i <= vecFieldRot.size() - 1; i++)
     {
+        float flow = ofSignedNoise(vecField[i].x * s, vecField[i].y * s, zoff * s);
+        ofSetColor(255, 255, 255, ofMap(flow, -1.0, 1.0, 0, 255));
         ofDrawLine(vecField[i], vecFieldRot[i]);
     }
     
@@ -97,7 +97,6 @@ void ofApp::draw()
     }
     // line.draw();
     zoff++;
-    // rmsVol;
 }
 
 //--------------------------------------------------------------
