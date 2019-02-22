@@ -39,13 +39,13 @@ void ofApp::setup()
         }
     }
     // initialise particles
-    for (int i = 0; i < 50; i++)
-    {
-        position.push_back(ofVec2f(ofRandom(ofGetWidth(), ofGetHeight())));
-        velocity.push_back(ofVec2f(0, 0));
-        force.push_back(ofVec2f(0, 0));
-        part_flow.push_back(ofVec2f(0, -1));
-    }
+//    for (int i = 0; i < 50; i++)
+//    {
+//        position.push_back(ofVec2f(ofRandom(ofGetWidth(), ofGetHeight())));
+//        velocity.push_back(ofVec2f(0, 0));
+//        force.push_back(ofVec2f(0, 0));
+//        part_flow.push_back(ofVec2f(0, -1));
+//    }
 }
 
 //--------------------------------------------------------------
@@ -68,33 +68,33 @@ void ofApp::draw()
         ofDrawLine(vecField[i], vecFieldRot[i]);
     }
     
-    for (int i = 0; i < 50 - 1; i++)
-    {
-        float flow = ofSignedNoise(position[i].x * s, position[i].y * s, zoff * s);
-        part_flow[i].set(0, -1);
-        part_flow[i].rotate(ofMap(flow, -1.0, 1.0, 0, 90), position[i]);
-        
-//        line.addVertex(position[i].x, position[i].y);
-
-//        for (int j = 0; j < 50; j++)
-//        {
-//            if (j != i)
-//            {
-//                if (position[i].distance(position[j]) < 500)
-//                {
-//                    line.addVertex(position[j].x, position[j].y);
-//                }
-//            }
-//        }
-        
-        force[i] += part_flow[i];
-        force[i] *= 0.01;
-        velocity[i] += force[i];
-        velocity[i].normalize();
-        position[i] += velocity[i];
-        force[i] *= 0;
-        
-    }
+    //    for (int i = 0; i < 50 - 1; i++)
+    //    {
+    //        float flow = ofSignedNoise(position[i].x * s, position[i].y * s, zoff * s);
+    //        part_flow[i].set(0, -1);
+    //        part_flow[i].rotate(ofMap(flow, -1.0, 1.0, 0, 90), position[i]);
+    //
+    //        line.addVertex(position[i].x, position[i].y);
+    //
+    //        for (int j = 0; j < 50; j++)
+    //        {
+    //            if (j != i)
+    //            {
+    //                if (position[i].distance(position[j]) < 500)
+    //                {
+    //                    line.addVertex(position[j].x, position[j].y);
+    //                }
+    //            }
+    //        }
+    //
+    //        force[i] += part_flow[i];
+    //        force[i] *= 0.01;
+    //        velocity[i] += force[i];
+    //        velocity[i].normalize();
+    //        position[i] += velocity[i];
+    //        force[i] *= 0;
+    //
+    //    }
     // line.draw();
     zoff++;
 }
@@ -141,8 +141,17 @@ void ofApp::mouseExited(int x, int y){
 }
 
 //--------------------------------------------------------------
-void ofApp::windowResized(int w, int h){
-    
+void ofApp::windowResized(int w, int h)
+{
+    // update flow field after resize
+    for (int x = 1; x <= ofGetWidth(); x+= fieldDensity)
+    {
+        for (int y = 1; y <= ofGetHeight(); y += fieldDensity)
+        {
+            vecField.push_back(ofVec2f(x, y)); // fill vector field with empty points
+            vecFieldRot.push_back(ofVec2f(x, y-fieldDensity)); // rotation of each point
+        }
+    }
 }
 
 //--------------------------------------------------------------

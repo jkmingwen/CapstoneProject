@@ -99,7 +99,6 @@ void ofApp::audioIn(ofSoundBuffer &input)
     
     smoothedVol *= 0.93;
     smoothedVol += 0.07 * currentVol;
-    
     bufferCounter++;
 }
 
