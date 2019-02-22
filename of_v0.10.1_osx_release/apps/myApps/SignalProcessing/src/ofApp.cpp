@@ -28,6 +28,7 @@ void ofApp::setup()
     settings.numInputChannels = 2; // stereo
     settings.bufferSize = BUFFER_SIZE;
     soundStream.setup(settings);
+    audioAnalyzer.setup(SAMPLE_RATE, BUFFER_SIZE, 2);
 }
 
 //--------------------------------------------------------------
@@ -39,7 +40,8 @@ void ofApp::update()
     
     // record the volume into an array
     // volHistory.push_back(scaledVol);
-    volHistory.push_back(rmsVol);
+    // volHistory.push_back(rmsVol);
+    volHistory.push_back(rms_l);
     /* if we are bigger the the size we want to record,
      drop the oldest value. this will be the first element
      in the vector */
@@ -47,6 +49,12 @@ void ofApp::update()
     {
         volHistory.erase(volHistory.begin(), volHistory.begin()+1);
     }
+    
+    smooth = ofClamp(ofGetMouseX() / ofGetWidth(), 0.0, 1.0);
+    rms_l = audioAnalyzer.getValue(RMS, 0, smooth);
+    rms_r = audioAnalyzer.getValue(RMS, 1, smooth);
+//    rms_l = audioAnalyzer.getValue(RMS, 0);
+//    rms_r = audioAnalyzer.getValue(RMS, 1);
 }
 
 //--------------------------------------------------------------
@@ -60,12 +68,13 @@ void ofApp::draw()
         {
             ofVertex(i, 400);
         }
-        ofVertex(i, 400 - volHistory[i] * 1000);
+        ofVertex(i, 400 - volHistory[i] * 10);
         if (i == volHistory.size() - 1) // end of graph
         {
             ofVertex(i, 400);
         }
-        ofDrawBitmapString(ofToString(rmsVol * 100), ofGetWidth()/2, ofGetHeight()/2);
+//        ofDrawBitmapString(ofToString(rmsVol * 100), ofGetWidth()/2, ofGetHeight()/2);
+        ofDrawBitmapString(ofToString(rms_l), ofGetWidth()/2, ofGetHeight()/2);
     }
     ofEndShape();
 }
@@ -128,38 +137,39 @@ void ofApp::dragEvent(ofDragInfo dragInfo){
 //--------------------------------------------------------------
 void ofApp::audioIn(ofSoundBuffer &input)
 {
-    // separate interleaved buffer into separate left/right arrays
-    for (int i = 0; i < input.getNumFrames(); i++)
-    {
-        // samples are interleaved (L on even, R on odd)
-        left[i] = input[i*2] * 0.5;
-        right[i] = input[i*2+1] * 0.5;
-    }
-    rmsVol = RMS(left, right);
-    bufferCounter++;
+//    // separate interleaved buffer into separate left/right arrays
+//    for (int i = 0; i < input.getNumFrames(); i++)
+//    {
+//        // samples are interleaved (L on even, R on odd)
+//        left[i] = input[i*2] * 0.5;
+//        right[i] = input[i*2+1] * 0.5;
+//    }
+//    // rmsVol = RMS(left, right);
+//    bufferCounter++;
+    audioAnalyzer.analyze(input);
 }
 
 //--------------------------------------------------------------
-float ofApp::RMS(vector <float> left, vector <float> right)
-{
-    // Store sum of amplitudes
-    float rms = 0.0;
-    
-    /* calculate rms of sample volumes
-     BUFFER_SIZE is halved as buffer has been split
-     into L and R channels */
-    for (int i = 0; i < BUFFER_SIZE / 2; i++)
-    {
-        // square volumes on both channels add together
-        rms += left[i] * left[i];
-        rms += right[i] * right[i];
-    }
-    // divide by number of samples in buffer to get mean of squares
-    rms /= (float) BUFFER_SIZE;
-    rms = sqrt(rms); // square root
-    
-//    smoothedVol *= 0.93;
-//    smoothedVol += 0.07 * rms;
-    
-    return rms;
-}
+//float ofApp::RMS(vector <float> left, vector <float> right)
+//{
+//    // Store sum of amplitudes
+//    float rms = 0.0;
+//    
+//    /* calculate rms of sample volumes
+//     BUFFER_SIZE is halved as buffer has been split
+//     into L and R channels */
+//    for (int i = 0; i < BUFFER_SIZE / 2; i++)
+//    {
+//        // square volumes on both channels add together
+//        rms += left[i] * left[i];
+//        rms += right[i] * right[i];
+//    }
+//    // divide by number of samples in buffer to get mean of squares
+//    rms /= (float) BUFFER_SIZE;
+//    rms = sqrt(rms); // square root
+//    
+////    smoothedVol *= 0.93;
+////    smoothedVol += 0.07 * rms;
+//    
+//    return rms;
+//}

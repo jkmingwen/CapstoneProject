@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
+#include "ofxAudioAnalyzer.h"
 
 class ofApp : public ofBaseApp{
     
@@ -21,7 +22,7 @@ public:
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
     void audioIn(ofSoundBuffer &input);
-    float RMS(vector <float> left, vector <float> right);
+    // float RMS(vector <float> left, vector <float> right);
     
     vector <float> left;
     vector <float> right;
@@ -37,4 +38,8 @@ public:
     float rmsVol;
     
     ofSoundStream soundStream;
+    ofxAudioAnalyzer audioAnalyzer;
+    
+    float smooth;
+    float rms_l, rms_r;
 };
