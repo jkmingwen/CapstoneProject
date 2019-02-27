@@ -51,7 +51,8 @@ void ofApp::update()
 //--------------------------------------------------------------
 void ofApp::draw()
 {
-    ofSetColor(255, 255, 255);
+    ofDrawBitmapString(scaledVol, 20, 20);
+    ofSetColor(255, 255, 255, 125);
     
     for (int particleA = 0; particleA < mass.size(); particleA++)
     {
