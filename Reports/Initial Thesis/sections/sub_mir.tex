@@ -1,0 +1,59 @@
+\documentclass[../initial_thesis.tex]{subfiles}
+
+\begin{document}
+
+\section{Music Feature Extraction}
+The goal of this section is to give an overview of techniques developed in the field of MIR that can be used to extract basic music elements from an audio signal. It will start by defining the terms used to describe basic music elements before introducing the various techniques developed to identify and measure these elements in an audio signal.
+
+\subsection{Basic music elements}
+There are many elements and terms used to describe music. As an in depth explanation of these concepts is beyond the scope of this report, this section will only define a subset of music elements --- focusing on the concepts of pitch, intensity, timbre, and rhythm. Understanding these elements should be sufficient for understanding the later sections of the report.
+
+\paragraph{Pitch} The perception of the fundamental frequency of a sound \cite{Orio2006}. It is how we tell the difference between two notes on a piano --- or any other tuned musical instrument.
+
+\paragraph{Intensity} The loudness of the perceived sound. This is linked to the amplitude of an audio signal.
+
+\paragraph{Timbre} The sound characteristics that allow listeners to differentiate two different sounds played with the same pitch and intensity --- this stems from the musical instrument used, the way an instrument is played, as well as the any effects added onto the sound \cite{Orio2006}. Timbre is how we distinguish between a note played on a violin and a note played on a piano (music instrument). It is the term used to describe the quality of the sound itself, independent of its pitch and intensity.
+
+\paragraph{Rhythm} The perception of patterns in periodic onsets of sounds. \\
+\par
+
+Once again, this list is only a subset of the many music elements and terms. For readers who are interested in learning more, Nicola Orio's \textit{Music Retrieval: A Tutorial and Review} \cite{Orio2006} would be a good place to start for or a comprehensive explanation of the many music elements and terms.
+
+\subsection{Low-level audio features in content-based MIR}
+The field of MIR is concerned with enabling access to music collections through retrieval systems where the various representations of music, such as metadata, notation, or the music itself, are mapped to pieces of music \cite{Downie}. While this project is not concerned with the goals of MIR, the various methods and strategies developed in research on MIR systems to extract information from audio signals will be useful for the purpose of implementing a video synthesizer. This project requires extracting music information from a live audio signal --- the techniques related to this lie within a subset of MIR known as content-based MIR \cite{Casey2008}. Working with a live audio signal means that we do not have direct access to higher level music information such as metadata, notation, or any of the basic music elements described above. Methods used to extract and analyse low-level audio features will therefore be used. Low-level audio features are measurements of audio signals that contain information about a musical work and music performance \cite{Casey2008} --- the term refers to the raw quantitative information of an audio signal. Once extracted, these low-level features can then be used as a means to measure basic music elements. The various methods of extracting low-level audio features from an audio signal will be listed below --- these descriptions were referenced from Michael Casey et al.'s paper on content-based MIR \cite{Casey2008}.
+
+\paragraph{Short-Time Magnitude Spectrum}
+The Short-Time Magnitude Spectrum essentially refers to the spectrum obtained through windowed fast Fourier transforms (FFTs). Low-level feature extraction methods tend to involve the use of windowed FFTs as their first step. FFTs decompose a signal to its constituent frequencies and their relative magnitudes --- these are then grouped into evenly spaced frequency bands in order to analyze the spectrum of frequencies present in a given sample of audio.
+
+\paragraph{Constant-Q/Mel Spectrum}
+The Constant-Q and Mel Spectrums are similar to Short-Time Magnitude Spectrums, except that they use nonuniform frequency bands in an attempt to match the ear's frequency response to an audio signal. Evenly spaced frequency bands tend to contain more information on the lower bands than the higher bands while the Constant-Q and Mel Spectrums spread out the information more evenly across the frequency bands. These two spectrums can be obtained from an FFT computed linear spectrum by summing the powers in adjacent frequency bands.
+
+\paragraph{Pitch-Class Profile (Chromagram)}
+The Pitch-Class Profile, or Chromagram, is obtained by grouping frequency bands by their pitch class. In Western tonal music, this results in 12 bands --- one for all the octaves of each pitch-class. For those not familiar with the term ``pitch class'', in Western tonal music, they refer to the notes C to B. Chromagrams can therefore be used to identify the various notes within an audio signal.
+
+\paragraph{Onset Detection}
+Onset detection is concerned with marking the beginnings of notes. This can be accomplished by observing spectral differences in the magnitude spectrum of adjacent time points.
+
+\paragraph{Mel/Log-Frequency Cepstral Coefficients (MFCC)}
+MFCC can be obtained by taking the logarithm of the Mel magnitude spectrum of the Mel magnitude spectrum and decorrelating the resulting values using a Discrete Cosine Transform. MFCC can be used as a measure of the timbre of an audio signal.
+
+\paragraph{Spectrul Flux}
+Spectral flux is a measure of the rate of change of power in each spectral band. It is similar to onset detection except it allows us to isolate the detection of onsets to specific frequencies. This would allow us to distinguish a hit on a cymbal from a hit on the kick drum, for example.
+
+\paragraph{Decibel Scale (Log Power)}
+The decibel scale, simply put, is a measure of loudness with a scale that resembles the ear's response. It is a logarithmic scale of power as opposed to a linear scale.
+
+\paragraph{Tempo Tracking}
+Tempo tracking follows from onset detection over a period of time. It allows us to estimate the rhythm of an audio signal.\\
+\par
+
+For a more in depth explanation of the methods used in MIR, including those listed above, Casey et al.'s paper on \textit{Content-Based Music Information Retrieval} \cite{Casey2008} provides an excellent review of the current field of MIR. Stephen Downie's paper \cite{Downie} on the Music Information Retrieval Evaluation eXchange (MIREX) is another good introduction to the field. \par
+
+We have established the motivations behind pairing audio with video and defined the techniques which we can use to extract music features from an audio signal. What follows is a review of some of the video synthesizers currently available on the market to see how others, with similar motivations, have implemented portable video synthesizers that react to an audio signal.
+
+% introduce problem of fft having to wait for window to fill
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../initial_thesis"
+%%% End:

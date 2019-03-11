@@ -1,0 +1,41 @@
+\documentclass[../../initial_thesis.tex]{subfiles}
+
+\begin{document}
+
+\subsection{OPENRNDR}
+
+\subsubsection{Learning and exploring Capabilities}
+OPENRNDR is a relatively new framework. It's is different from the other frameworks tested in that it is written in Kotlin to run on the Java Virtual Machine (JVM) instead of in C++. OPENRNDR notably uses the existing Kotlin and Java development tools in contrast to similar frameworks. OPENRNDR's pitch is that it provides creative coders with a framework that is more suitable for a production context while still being simple enough to use as a prototyping tool. It also believes that the speed of C++ doesn't necessarily justify the complexity of its structure and syntax in the context of visual computing \cite{ORMedium}. They do have a relatively comprehensive guide which consists of their API documentation as well as tutorial code to get users acquainted with the framework \cite{ORGuide}.
+
+\paragraph{Audio processing}
+Unfortunately, at the moment, there doesn't seem to be any proprietary support for audio processing on OPENRNDR. Nonetheless, given that OPENRNDR is written for the JVM, users might be able to use Java libraries to process audio inputs.
+
+\paragraph{Graphics}
+OPENRNDR uses the \verb|Drawer| object for basic drawings and shader templates known as ``shade styles'' to affect the appearance of the visuals drawn. Shade styles are fragments of OpenGL Shading Language (GLSL) code that are implemented as templates for drawings in OPENRNDR. Shade styles consist of vertex and fragment transforms that controls the geometry and appearance of the shapes drawn respectively \cite{ORshadestylestut}. OPENRNDR also allows users to draw to render targets; allowing them to easily filter or post-process their various images. OPENRNDR performs many of these graphics transformations using GPU hardware acceleration rather than OpenGL \cite{ORMedium}.
+
+\subsubsection{Creating a new project}
+Starting a new project in OPENRNDR consists simply of importing the project template provided in its Git repository.
+\subsubsection{Current implementations}
+Some projects that used OPENRNDR as a development framework are listed below:
+
+\begin{enumerate}
+\item LUST's \textit{READ/WRITE/REWRITE} \cite{ORml}
+\item LUST's work at the Identity Museum of the Future 2017 \cite{ORbinpacking}
+\end{enumerate}
+
+\begin{figure}
+  \includegraphics[scale = 0.1]{OPENRNDR/readwriterewrite}
+  \centering
+  \caption{Photo of \textit{READ/WRITE/REWRITE} \cite{ORml}}
+  \label{fig:readwriterewrite}
+\end{figure}
+
+There is a pattern emerging amongst the kinds of graphics that are being highlighted as inspirations for this projects. The particle movements in LUST's \textit{READ/WRITE/REWRITE}, as seen in Figure \ref{fig:readwriterewrite}, is yet another example of particle movements that lead to interesting visuals. It does take a slightly different approach to the works by fuse* and Lengeling, however. The particles' movements seem to be governed by the links drawn by the machine learning algorithm instead of a vector field and behavourial traits of each particle.
+
+\subsubsection{Issues}
+OPENRNDR is still a young project and it is hard to say if developments will continue. The simplicity of the framework in generating visuals means that it would be useful for generating complex animations for a video synthesizer. Furthermore, it being built using native Kotlin and Java development tools means that it should be compatible across existing infrastructures and easier to use with existing libraries. That said, while it might be possible to attempt to import an external Java library to handle audio input, it might not be feasible to do so considering the time constraints of this project. Furthermore, most of the implementations that use OPENRNDR are by LUST, which is the studio that began development of the framework now known as OPENRNDR \cite{ORsite}. This raises some questions about how widely adopted the framework is as well as the amount of support one might receive given any problems encountered while using it. It might be worth waiting a while longer before using OPENRNDR for a large scale project like this.
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../../initial_thesis"
+%%% End:

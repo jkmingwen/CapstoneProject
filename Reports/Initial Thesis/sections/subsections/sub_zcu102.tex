@@ -1,0 +1,12 @@
+\documentclass[../../initial_thesis.tex]{subfiles}
+
+\begin{document}
+
+\paragraph{ZCU102 Evaluation Kit}
+The ZCU102 runs off the ZU9EG SoC. It has a one quad-core and one dual-core processor running at clock speeds of 1.5GHz and 600MHz respectively. It also has a GPU with a clock speed of 667MHz \cite{XilinxDatasheet}. Its processing and graphics processing capablities therefore likely exceed that of the Raspberry Pi and the Nucleo-144. Nonetheless, the key aspect of the ZCU102 is that it has a field-programmable gate array (FPGA). An FPGA allows users to optimise certain computations by programming the logic gates of the integrated circuit. This makes it suitable for applications where latency needs to be minimised. Utilising the FPGA would require coding in a hardware description language like Verilog, however, and the complexity of programming a FPGA might not be viable given the time constraints of this project. Furthermore, it is not necessarily the case that the optimisations of the FPGA would outperform a fast GPU in terms speed of rendering visuals. Measuring 237x244mm, it is also the largest board amongst those reviewed. It is therefore hard to justify using the ZCU102 in the context of this project.
+
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../../initial_thesis"
+%%% End:
