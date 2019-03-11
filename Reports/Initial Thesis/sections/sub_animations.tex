@@ -1,18 +1,18 @@
 \documentclass[../initial_thesis.tex]{subfiles}
 
 \begin{document}
-\section{Implementing animations}
+\section{Initial animations}
 There were three animations implemented. For ease of reference, they have been named according to their characteristic shape or movements: Circles, Clouds, and Shimmer.
 
 % Include screenshots of animations
 \subsection{Circles}
-Circles is made up of a series of ellipses placed adjacent to one another to form a horizontal line in the middle of the screen. It is based off the visualisation of an audio signal that was first implemented in Section \ref{sec:openframeworks}. The mapping of amplitude to displacement along the y-axis, as well as volume to radius of ellipse, remains the same.
+Circles is made up of a series of ellipses placed adjacent to one another to form a horizontal line in the middle of the screen. Each ellipse corresponds to a sample in the buffer. It is based off the visualisation of an audio signal that was first implemented in Section \ref{sec:openframeworks}. The mapping of amplitude to the ellipse's displacement along the y-axis, as well as volume to radius of the ellipses, remains the same.
 
 \subsection{Clouds}
-Clouds is based on Konstantine Wegner's algorithm in ``Wobbly Swarm''. His algorithm forms the basis for a basic particle cloud in which each particle, represented by an ellipse, experiences an attractive force to every other particle until they cross a threshold of being too close too one another --- after which, they experience a repulsive force pushing them away from one another.
+Clouds is based on Konstantin Makhmutov's algorithm in ``Wobbly Swarm'' \cite{Makhmutov}. His algorithm forms the basis for a basic particle cloud in which each particle, represented by an ellipse, experiences an attractive force to every other particle on the screen until they cross a certain threshold of distance --- after which, they experience a repulsive force pushing them away from one another. Here, the volume of the audio signal has been mapped to amplify the force enacted on the particle by the other particles. The amplification of force is also visualised by a temporary increase in the radius of the ellipse. In contrast to Circles, Clouds features elements whose movements are not entirely dependent on the audio signal. The elements aren't fixed to a specific point on the x-axis or y-axis either. They therefore form a slightly more dynamic system in constrast to Circles.
 
 \subsection{Shimmer}
-Shimmer utilises lines that spin about a fixed axis to form a ripple effect that slowly spreads out across the screen. It is distinct from the other two animations as there isn't one fixed point of interest for the viewer to focus on --- all elements in the screen are constantly in motion. Perlin Noise is used to determine the rotation of these lines.
+Shimmer utilises lines that spin about an array of fixed points to form a ripple effect that slowly spreads out across the screen. The angle of each line's rotation is determined by Perlin Noise. Perlin Noise is also used to determine the alpha level, which affects the opacity, of each line. The volume of the audio signal determines the speed of the rotation. It is distinct from the other two animations as there isn't one fixed point of interest for the viewer to focus on --- all elements are spread across the screen and constantly in motion.
 \end{document}
 %%% Local Variables:
 %%% mode: latex
