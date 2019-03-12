@@ -1,5 +1,5 @@
-# Implementation of a portable video synthesizer
-## MCS Capstone 2018/2019
+# MCS Capstone Project 2018/2019
+## A portable video synthesizer for real-time audio signals
 
 There are several video synthesizers made specifically for music visualisation that are designed to run off a computer, however, such an implementation makes them cumbersome for use in a live context --- space on a stage can be sparse, and having to bring a computer to performances is inconvenient, especially if that means having to set up another piece of equipment. The solution to this is to have a video synthesizer that is implemented in a more portable enclosure. These do exist, nonetheless, most portable video synthesizers offer only simple graphics.
 
