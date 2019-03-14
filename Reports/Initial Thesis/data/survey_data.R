@@ -1,5 +1,6 @@
 library(tidyr)
 library(RColorBrewer)
+library(plotly)
 # Set working directory
 setwd("~/Documents/CapstoneProject/Reports/Initial Thesis/data/")
 # Read in data
@@ -36,6 +37,10 @@ quant_intuitivity <- gather(as.data.frame(quant_intuitivity),
                             Circles:Shimmer)
 quant_intuitivity <- spread(as.data.frame(quant_intuitivity), Participant, Rating)
 
+# summary(sapply(quant_engagement[,2:13], as.numeric)[1,])
+# summary(sapply(quant_engagement[,2:13], as.numeric)[2,])
+# summary(sapply(quant_engagement[,2:13], as.numeric)[3,])
+
 # Visualise data
 graph_cols <- brewer.pal(3, "Accent")
 barplot(as.matrix(quant_engagement[,2:13]), beside = TRUE,
@@ -51,3 +56,27 @@ barplot(as.matrix(quant_intuitivity[,2:13]), beside = TRUE,
         args.legend = list(x = 50,
                            y = 12,
                            bty = "n"))
+
+# Radar graphs
+p <- plot_ly(
+  type = 'scatterpolar',
+  fill = 'toself'
+) %>%
+  add_trace(
+    r = c(39, 28, 8, 7, 28, 39),
+    theta = c('A','B','C', 'D', 'E', 'A'),
+    name = 'Group A'
+  ) %>%
+  add_trace(
+    r = c(1.5, 10, 39, 31, 15, 1.5),
+    theta = c('A','B','C', 'D', 'E', 'A'),
+    name = 'Group B'
+  ) %>%
+  layout(
+    polar = list(
+      radialaxis = list(
+        visible = T,
+        range = c(0,50)
+      )
+    )
+  )
