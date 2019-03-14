@@ -2,7 +2,7 @@
 
 \begin{document}
 
-\section{Music Feature Extraction}
+\section{Music Feature Extraction}\label{sec:mir}
 The goal of this section is to give an overview of techniques developed in the field of MIR that can be used to extract basic music elements from an audio signal. It will start by defining the terms used to describe basic music elements before introducing the various techniques developed to identify and measure these elements in an audio signal.
 
 \subsection{Basic music elements}
@@ -19,7 +19,7 @@ There are many elements and terms used to describe music. As an in depth explana
 
 Once again, this list is only a subset of the many music elements and terms. For readers who are interested in learning more, Nicola Orio's \textit{Music Retrieval: A Tutorial and Review} \cite{Orio2006} would be a good place to start for or a comprehensive explanation of the many music elements and terms.
 
-\subsection{Low-level audio features in content-based MIR}
+\subsection{Low-level audio features in content-based MIR}\label{sec:lowlevelaudio}
 The field of MIR is concerned with enabling access to music collections through retrieval systems where the various representations of music, such as metadata, notation, or the music itself, are mapped to pieces of music \cite{Downie}. While this project is not concerned with the goals of MIR, the various methods and strategies developed in research on MIR systems to extract information from audio signals will be useful for the purpose of implementing a video synthesizer. This project requires extracting music information from a live audio signal --- the techniques related to this lie within a subset of MIR known as content-based MIR \cite{Casey2008}. Working with a live audio signal means that we do not have direct access to higher level music information such as metadata, notation, or any of the basic music elements described above. Methods used to extract and analyse low-level audio features will therefore be used. Low-level audio features are measurements of audio signals that contain information about a musical work and music performance \cite{Casey2008} --- the term refers to the raw quantitative information of an audio signal. Once extracted, these low-level features can then be used as a means to measure basic music elements. The various methods of extracting low-level audio features from an audio signal will be listed below --- these descriptions were referenced from Michael Casey et al.'s paper on content-based MIR \cite{Casey2008}.
 
 \paragraph{Short-Time Magnitude Spectrum}
