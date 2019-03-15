@@ -53,3 +53,6 @@ of_v0.10.1_osx_release/apps/*/*/*.xcodeproj
 
 # Ignore Videos file
 Videos/
+
+# Ignore auxiliary R files
+.Rhistory
