@@ -39,17 +39,19 @@ breaklines=true
 \markright{}
 \addcontentsline{toc}{section}{Introduction}
 % check citations for this paragraph!
-Video synthesizers started off as ``machines that electronically manipulated a video signal or a cathode ray tube to produce abstract or distorted images'' \cite{Collopy2014}. The various video synthesizers built by John and James Whitney \cite{Patterson2009}, Eric Siegel \cite{ElectronicArtsIntermix}, Nam June Paik and Shuya Abe \cite{Furlong1983}, and Stephen Beck \cite{Beck1992} --- amongst others --- expanded the scope of methods with which visuals could be produced. The gradual digitalisation of video synthesizers introduced even more means with which one could manipulate and produce a visual signal \cite{Collopy2014}. A video synthesizer can thus be broadly understood as a tool that takes in some form of input and manipulates or utilises said input to produce a visual signal. One possible input for a video synthesizer is an audio signal. This is not an uncommon technique --- both Windows Media Player and iTunes have music visualisation functions that react to the audio signal of the media being played. These add a visual dimension to what was once purely an aural sensory experience and allows users to enjoy music in more active ways than conventional passive music consumption \cite{Casey2008}. \par
+Video synthesizers started off as ``machines that electronically manipulated a video signal or a cathode ray tube to produce abstract or distorted images'' \cite{Collopy2014}. The various video synthesizers built by John and James Whitney \cite{Patterson2009}, Eric Siegel \cite{ElectronicArtsIntermix}, Nam June Paik and Shuya Abe \cite{Furlong1983}, and Stephen Beck \cite{Beck1992} --- amongst others --- expanded the scope of methods with which visuals could be produced. The gradual digitalisation of video synthesizers introduced even more means with which one could manipulate and produce a visual signal \cite{Collopy2014}. A video synthesizer can thus be broadly understood as a tool that takes in some form of input and manipulates or utilises said input to produce a visual signal. One possible input for a video synthesizer is an audio signal --- this is not an uncommon technique --- both Windows Media Player and iTunes have music visualisation functions that react to the audio signal of the media being played. These add a visual dimension to what was once purely an aural sensory experience and allows users to enjoy music in more active ways than conventional passive music consumption \cite{Casey2008}. \par
 
 There are several video synthesizers made specifically for music visualisation that are designed to run off a computer \cite{Casey2008}, however, such an implementation makes them cumbersome for use in a live context --- space on a stage can be sparse, and having to bring a computer to performances is inconvenient, especially if that means having to set up another piece of equipment. The solution to this is to have a video synthesizer that is implemented in a more portable enclosure. These do exist, nonetheless, most portable video synthesizers offer only simple graphics, such as those seen in Figure \ref{fig:etc}.
 
 \begin{figure}[b]
   \begin{subfigure}{0.5\textwidth}
+    \centering
   \includegraphics[width = 0.9\linewidth]{Report2/etc_mode}
   \caption{Screenshot \textit{ETC} video output}
   \label{fig:etc_mode}
 \end{subfigure}
 \begin{subfigure}{0.5\textwidth}
+  \centering
   \includegraphics[width = 0.9\linewidth]{Report2/etc_modeimages}
   \caption{\textit{ETC} output using images}
   \label{fig:etc_modeimages}
@@ -59,26 +61,29 @@ There are several video synthesizers made specifically for music visualisation t
 \end{figure}
 
 \paragraph{A proposed solution}
-This project addresses the shortcomings of the current range of video synthesizers by taking advantage of the increasingly powerful processing capabilities of single-board computers (SBCs). Its aim is to design and implement a portable video synthesizer that takes in an audio signal as input and --- using information extracted from the audio signal --- produces and manipulates a visual output in real-time. The goal is to design and implement a video synthesizer that will (1) produce complex and aesthetically pleasing visuals that react in real-time to a musician's playing and (2) integrate smoothly into a musician's live setup. \par
+This project addresses the shortcomings of the current range of video synthesizers by taking advantage of the increasingly powerful processing capabilities of single-board computers (SBCs). Its aim is to design and implement a portable video synthesizer that takes in an audio signal as input and --- using information extracted from the audio signal --- produces and manipulates a visual output in real-time. For the purpose of the paper, real-time is defined according to Wessel and Wright's definition of control intimacy in their paper, \textit{Problems and Prospects for Intimate Musical Control of Computers}: 10 milliseconds (ms) with a variation not exceeding 1 ms \cite{Wessel2002}. The goal is to design and implement a video synthesizer that will (1) produce complex and aesthetically pleasing visuals that react in real-time to a musician's playing and (2) integrate smoothly into a musician's live setup. \par
 
-Progress on the capstone project thus far can be broadly split into two parts. The first part consists of a review of the field of audiovisual expression, signal processing techniques, and how some portable video synthesizers have been implemented. It explains the motivations and research done on combining visuals with audio, and how music information can be extracted from an audio signal. The second part consists of research on frameworks and SBCs. It illustrates how the software and hardware tools used in this project have been, and will be selected. \par
+This thesis is split into three chapters: (1) Background, (2) Reviewing Tools of Implementation, and (3) Project Implementation. Chapter \ref{chap:background} covers the motivations and research done on combining visuals with audio, and how music information can be extracted from an audio signal. Readers are orientated to the field of audiovisual expression, the relevant techniques used in Music Information Retrieval (MIR), as well as some of the portable video synthesizers built for music visualisation currently available on the market. Brief definitions of the terminologies within these fields have also been included when relevant, along with references to more in depth readings pertaining to the given field. The research done in these fields will shape the ways in which the project is implemented. \par
 
-While the primary purpose of this report is to document the progress of this capstone, it also aims to orientate readers to several things: the field of audiovisual expression, the relevant techniques used in Music Information Retrieval (MIR), as well as some of the portable video synthesizers built for music visualisation currently available on the market. Brief definitions of the terminologies within these fields have therefore been included when relevant, along with references to more in depth readings pertaining to the given field. It will then explain the work done thus far and project how the this will contribute to the subsequent steps of the project. This report is therefore split into three chapters: (1) Audiovisual expression, Music Feature Extraction, and Video Synthesizers, (2) Framework and Board Reviews, and (3) Subsequent steps.
+Chapter \ref{chap:toolreview} consists of research on frameworks and SBCs --- it illustrates how the software and hardware tools used in implementing this project have been be selected. Five frameworks and six SBCs were considered altogether. Each framework was considered based on its learning curve, popularity, and existing projects utilising it, with openFrameworks ultimately being selected. The SBCs were evaluated based on their processing capablities as well as their hardware capablities. From this review, the Odroid XU4 was chosen as the SBC most suitable for this project. \par
+
+The process of implementing the video synthesizer is covered in Chapter \ref{chap:projectimplementation}. The initial animations implemented are explained along with the design and results of a survey that collected feedback on these audiovisualisations. A final series of animations were designed based off the feedback received from the surveys before they were implemented on the Odroid XU4. The chapter ends with a performance review of the video synthesizer on the Odroid XU4. \par
+
+The paper ends with a summary of what has been accomplished over the course of this project. It also includes thoughts about how the work done might contribute to the field of audiovisualisation, with a specific focus on how we might approach designing improved video synthesizers.
+
 % Control intimacy: Can introduce later (just say latency for now) --- think about Chion and how we want to link images tgt and this can help with avoiding perceptions of latency
-% Music visualizers vs Video Synthesizer: music visualizer implies more passivity, video synthesizer doesn't necessarily need audio input
-% Turning sound into moving images
 % It's an improvement cause there's intent to evoke emotional responses from audiences and not just present information
 
-\chapter{Background}
+\chapter{Background}\label{chap:background}
 \subfile{sections/sub_audiovisual}
 \subfile{sections/sub_mir}
 \subfile{sections/sub_videosynthesizers}
 
-\chapter{Tools for Implementation}
+\chapter{Reviewing Tools of Implementation}\label{chap:toolreview}
 \subfile{sections/sub_frameworkreview}
 \subfile{sections/sub_boardreview}
 
-\chapter{Project Implementation}
+\chapter{Project Implementation}\label{chap:projectimplementation}
 \subfile{sections/sub_subsequentsteps}
 \subfile{sections/sub_animations}
 \subfile{sections/sub_surveys}
