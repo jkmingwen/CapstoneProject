@@ -56,6 +56,8 @@ void ofApp::update()
 //--------------------------------------------------------------
 void ofApp::draw()
 {
+    auto start_u = std::chrono::system_clock::now();
+    
     for (int i = 0; i <= vecField.size() -1; i++)
     {
         float flow = ofSignedNoise(vecField[i].x * s, vecField[i].y * s, zoff * s);
@@ -97,6 +99,11 @@ void ofApp::draw()
     //    }
     // line.draw();
     zoff++;
+    
+    auto end_u = std::chrono::system_clock::now();
+    auto elapsed_u = end_u - start_u;
+    double total_u = elapsed_u.count() / 1000000.0; // ms duration
+    ofDrawBitmapString(total_u, 4, 60);
 }
 
 //--------------------------------------------------------------

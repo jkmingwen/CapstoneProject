@@ -52,6 +52,8 @@ void ofApp::update()
 //--------------------------------------------------------------
 void ofApp::draw()
 {
+    auto start_u = std::chrono::system_clock::now();
+    
     ofSetColor(255, 255, 255);
     //ofDrawBitmapString("Scaled average vol (0-100): " + ofToString(scaledVol * 100.0, 0), 4, 18);
     //ofDrawBitmapString("Smoothed average vol (0-100): " + ofToString(smoothedVol), 4, 30);
@@ -76,6 +78,11 @@ void ofApp::draw()
     ofEndShape();
     ofPopStyle();
     ofPushMatrix();
+    
+    auto end_u = std::chrono::system_clock::now();
+    auto elapsed_u = end_u - start_u;
+    double total_u = elapsed_u.count() / 1000000.0; // ms duration
+    ofDrawBitmapString(total_u, 4, 60);
 }
 
 //--------------------------------------------------------------
