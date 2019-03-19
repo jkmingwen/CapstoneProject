@@ -13,21 +13,23 @@ There is a \verb|AudioVisualiserComponent| class in JUCE made specifically to vi
 \paragraph{Graphics}
 The graphics in JUCE are implemented primarily through the \verb|Component| class. All user interface classes in JUCE inherit from its \verb|Component| class. The various graphics displayed on a window tend to be organised through parent and child components. Each component can implement its own \verb|paint| and \verb|resize| functions to display graphics and alter its size \cite{JUCECompDoc}. This allows the user to take a modular approach to the various graphical elements displayed on their window. JUCE also supports OpenGL for rendering graphics through the \verb|OpenGLAppComponent| class.
 
-
 \subsubsection{Creating a new project}
 Just like openFrameworks and Cinder, JUCE uses a project creation application. The application, named Projucer, allows users to create new projects with their required modules preloaded. Users are also able to add and remove modules, alter module paths, and rename projects from the within Projucer. After reading through the various tutorials and documentation, a relatively simple animation that reacted to an audio input was implemented.\footnotemark This can be seen in Figure \ref{fig:JUCEVisualiser}.
 \footnotetext{The source code can be accessed here: \url{https://github.com/jkmingwen/capstone/tree/master/Reports/Framework\%20Review/code/JUCESimpleVSynth}.}
 
-\begin{figure}[h]
+\begin{figure}
   \begin{subfigure}{0.5\textwidth}
+    \centering
     \includegraphics[width = 0.9\linewidth]{JUCE/simple_soft}
     \caption{Simple, soft sound}
   \end{subfigure}
   \begin{subfigure}{0.5\textwidth}
+    \centering
     \includegraphics[width = 0.9\linewidth]{JUCE/simple_med}
     \caption{Simple, medium sound}
   \end{subfigure}
   \begin{subfigure}{0.5\textwidth}
+    \centering
     \includegraphics[width = 0.9\linewidth]{JUCE/complex}
     \caption{Complex sound}
   \end{subfigure}
@@ -45,7 +47,7 @@ Here are some of the projects that use JUCE as a framework:
 Most of the projects that use JUCE are concerned with some form of audio processing \cite{JUCE}. The three projects listed are all, in one way or another, software that allows its users to synthesize sound and to link these capabilities up to various peripherals.
 
 \subsubsection{Issues}
-In spite of the many tutorials provided, it does take some time to figure out exactly how to utilise the many classes in JUCE as well as the various methods available to each class. A simple visualiser took a substantially longer time to implement on JUCE than it did on openFrameworks and Cinder. There were also some issues with the framerate of the visualiser which was not running as smoothly as in openFrameworks and Cinder.
+In spite of the many tutorials provided, it does take some time to figure out exactly how to utilise the many classes in JUCE as well as the various methods available to each class. A simple visualiser took a substantially longer time to implement on JUCE than it did on openFrameworks and Cinder. There were also some issues with the frame rate of the visualiser which was not running as smoothly as in openFrameworks and Cinder.
 \end{document}
 %%% Local Variables:
 %%% mode: latex

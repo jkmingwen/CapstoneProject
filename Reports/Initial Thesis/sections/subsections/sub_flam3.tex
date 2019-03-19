@@ -6,19 +6,33 @@
 
 \subsubsection{Learning and exploring Capabilities}
 FLAM3 is a piece of software written to render fractal flames. It is made up of a series of libraries that allow users to render a series of images, animate these images, and to alter the parameters that create these images. It is different from the other frameworks explored in that it was not written to be used as a platform for other projects. The source code of these libraries are available on Github along with instructions on how to set up and run FLAM3.
+
 \paragraph{Audio processing}
 There aren't any built in libraries to process audio input from the audio drivers of a computer.
 \paragraph{Graphics}
 There are three programs that handle the primary functionality of FLAM3. \verb|flam3-render| generates still images, \verb|flam3-genome| alters the parameters of the algorithm that generates these images, and \verb|flam3-animate| interpolates between each image to generate animations.
 
 \subsubsection{Creating a new project}
-Users should be able to simply clone the Git repository, configure, and run the Makefile in order to generate animations of fractal flames. New fractal flames are generated on the command line by using the \verb|flam3-genome| to mutate the flame rendering algorithm and passing this algorithm into \verb|flam3-render| to create a new image. The parameters of the animation can also be altered on the command line in a similar manner. The Git repository has a pretty comprehensive guide on how to generate new fractal flames \cite{Draves}. More information on how these functions are implemented are available in a paper by Draves and Reckase \cite{Draves2003}.
+Users should be able to simply clone the Git repository, configure, and run the Makefile in order to generate animations of fractal flames. New fractal flames are generated on the command line by using the \verb|flam3-genome| to mutate the flame rendering algorithm and passing this algorithm into \verb|flam3-render| to create a new image. The parameters of the animation can also be altered on the command line in a similar manner. The Git repository has a comprehensive guide on how to generate new fractal flames \cite{Draves}. More information on how these functions are implemented are available in a paper by Draves and Reckase \cite{Draves2003}.
 
 \subsubsection{Current implementations}
 There are numerous implementations of the algorithms used in FLAM3. One of which is the Electric Sheep project, which generates animated fractal flames as a screensaver based off their popularity measured in a voting system \cite{Dravesa}. Specialised software such as Fr0st, Apophysis, and Oxidizer also use the FLAM3 algorithms as a base to generate fractal flames \cite{Dravesb}.
 
+\begin{figure}
+  \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width = 0.9\linewidth]{FLAM3/flame1}
+  \end{subfigure}
+  \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width = 0.9\linewidth]{FLAM3/flame2}
+  \end{subfigure}
+  \caption{Examples of Drave's Fractal Flames \cite{Draves1993}}
+  \label{fig:flames}
+\end{figure}
+
 \subsubsection{Issues}
-FLAM3 unfortunately runs only on Windows or Linux. I did try running it on a virtual machine that was running on Linux, but this too did not work. A larger issue with FLAM3 is that, after observing the many implementation of the FLAM3 algorithm and its various mutations, I realised that it would be difficult to utilise it in a way that would make the resulting animation look like something other than an application of Drave's fractal flame animation. Furthermore, attempting to implement parameter changes based off audio input might be too challenging given the scope of this project.
+FLAM3 runs only on Windows or Linux. I did try running it on a virtual machine that was running on Linux, but this too did not work. A bigger issue with FLAM3 is that, after observing the many implementations of the FLAM3 algorithm and its various mutations, I realised that it would be difficult to utilise it in a way that would make the resulting animation look like something other than an application of Drave's fractal flame animation --- as seen in Figure \ref{fig:flames}, fractal flames have a distinctly ephemeral and ghostly look. Furthermore, attempting to implement parameter changes based off audio input might be too challenging given the scope of this project.
 
 \end{document}
 %%% Local Variables:

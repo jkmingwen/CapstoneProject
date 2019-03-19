@@ -8,21 +8,23 @@
 Like openFrameworks, Cinder is written in C++. In fact, Cinder and openFrameworks seem like the two most similar frameworks out of the five being compared. Cinder has guides on the various classes and functions in its framework as well as a relatively comprehensive documentation of its various namespaces --- this includes the architecture of their namespaces as well as how they are implemented.
 
 \paragraph{Audio processing}
-The audio capabilities in Cinder are handled by the \verb|ci::audio| namespace. It runs on a modular, Node-based system that allows users to connect audio building blocks in a manner appropriate to the user's application \cite{CinderAudioAPI}. The two classes crucial to audio processing in Cinder are \verb|audio::Context| and \verb|audio::Node| \cite{CinderAudioAPI}. \verb|audio::Context| handles audio processing and thread synchronisation while \verb|Nodes| builds audio processing graphs. The modular nature of audio processing in Cinder might make it easier to construct complex audio processes. For example, by leaving a \verb|Context| off, the user is able to disable all computations involved in the audio chain. By disabling a single \verb|Node|, they are able to bypass the individual process carried out by that \verb|Node|. \verb|Node|s can also be dynamically connected or enabled while audio is playing and supports multiple inputs and outputs \cite{CinderAudioAPI}. These features make audio processing in Cinder very flexible.
+The audio capabilities in Cinder are handled by the \verb|ci::audio| namespace. It runs on a modular, Node-based system that allows users to connect audio building blocks in a manner appropriate to the user's application \cite{CinderAudioAPI}. The two classes crucial to audio processing in Cinder are \verb|audio::Context| and \verb|audio::Node| \cite{CinderAudioAPI}. \verb|audio::Context| handles audio processing and thread synchronisation while \verb|Nodes| builds audio processing graphs. The modular nature of audio processing in Cinder might make it easier to construct complex audio processes. For example, by leaving a \verb|Context| off, the user is able to disable all computations involved in the audio chain. By disabling a single \verb|Node|, they are able to bypass the individual process carried out by that \verb|Node|. \verb|Node|s can also be dynamically connected or enabled while audio is playing and supports multiple inputs and outputs \cite{CinderAudioAPI}. These features make audio processing in Cinder seem particularly flexible.
 
 \paragraph{Graphics}
 Cinder supports both 2D and 3D graphics. Like openFrameworks, it allows users access to abstracted OpenGL functions through its proprietary API. This is accomplished primarily through the \verb|ci::gl| namespace. It also supports raster graphics through the \verb|ci::Surface|, \verb|ci::Channel|, and \verb|ci::ip| namespaces.
 
 \subsubsection{Creating a new project}
-For project creation, Cinder relies on an application called Tinderbox. With TinderBox, users are able to decide on a project template and choose which Cinder versions they would like to compile against. TinderBox also allows users to point at multiple installations of Cinder installed on one machine. This makes it slightly more flexible than openFrameworks in terms of version control. Cinder calls its prepackaged libraries ``CinderBlocks'', allowing users to select the ones most applicable to their project. Cinder's modular audio API made it easy to set up a quick implementation of an audio visualiser. Audio input was initialised by creating an \verb|InputDeviceNode| while monitoring the levels of the buffer was handled by the \verb|MonitorNode|. Cinder's samples also provided helper functions to visualise the buffer data on a window. The various data points were fed into a vector and the \verb|ci::gl| namespace was used to render the waveform. The results of this are displayed in Figure \ref{fig:cinderVisualiser}.\footnotemark
+For project creation, Cinder relies on an application called Tinderbox. With TinderBox, users are able to decide on a project template and choose which Cinder versions they would like to compile against. TinderBox also allows users to point at multiple installations of Cinder installed on one machine. This makes it slightly more flexible than openFrameworks in terms of cross-version compatibility. Cinder calls its prepackaged libraries ``CinderBlocks'', allowing users to select the ones most applicable to their project. Cinder's modular audio API made it easy to set up a quick implementation of an audio visualiser. Audio input was initialised by creating an \verb|InputDeviceNode| while monitoring the levels of the buffer was handled by the \verb|MonitorNode|. Cinder's samples also provided helper functions to visualise the buffer data on a window. The various data points were fed into a vector and the \verb|ci::gl| namespace was used to render the waveform. The results of this are displayed in Figure \ref{fig:cinderVisualiser}.\footnotemark
 \footnotetext{The source code can be accessed here: \url{https://github.com/jkmingwen/capstone/tree/master/Reports/Framework\%20Review/code/CinderTest}.}
 
-\begin{figure}[h]
+\begin{figure}
   \begin{subfigure}{0.5\textwidth}
+    \centering
     \includegraphics[width = 0.9\linewidth]{Cinder/simple}
     \caption{Simple sound}
   \end{subfigure}
   \begin{subfigure}{0.5\textwidth}
+    \centering
     \includegraphics[width = 0.9\linewidth]{Cinder/complex}
     \caption{Complex sound}
   \end{subfigure}
@@ -34,20 +36,23 @@ A similar approach was taken to this visualisation to the one in openFrameworks 
 
 \subsubsection{Current implementations}
 The following are some audiovisual projects where Cinder was used as a developmental framework:
+
 \begin{enumerate}
 \item The Mill's \textit{COSMOGRAPH} \cite{TheMill}
 \item Thomas Sanchez Lengeling's \textit{Generative Visuals NAFF Code} \cite{Lengeling}
 \item Hannah Davis' \textit{Symphonologie} \cite{HannahDavis2016}
 \end{enumerate}
 \begin{figure}
+  \centering
   \includegraphics[width = 0.9\linewidth]{Cinder/satie}
   \caption{Screenshot of Lengeling's \textit{Generative Visuals NAFF Code}}
   \label{fig:lengeling}
 \end{figure}
+
 Lengeling's visualisations in \textit{Generative Visuals NAFF Code} --- as seen in Figure \ref{fig:lengeling} --- were particularly impressive. It consists of particles positioned in a way that imply a 3D sphere. Just as in \textit{MULTIVERSE}, each particle is acted upon by various forces depending on its surroundings. The extent to which the particles are attracted or repelled from the center of the sphere depends on the amplitudes of the specific frequencies they are mapped to \cite{Sanchez}. There are also lines that connect particles when they cross a threshold of distance between each other.
 
 \subsubsection{Issues}
-There were not many problems with Cinder. There was a persistent problem of Xcode crashing whenever \verb|#include| statements in the source code of Cinder projects were edited. I have not been able to find a solution for this except to edit the source code on another IDE and compiling it on Xcode. It might has have something to do with the search path of the autocomplete function in Xcode. Nevertheless, this seems like more of an Xcode function than a problem with Cinder. One thing that did stand out is that Cinder seems to have a much smaller community than openFrameworks. It should be noted, however, that this judgement is based off the activity of their respective forums as well as the number of projects that use openFrameworks as opposed to Cinder and so it might not be entirely accurate.
+There was a persistent problem of Xcode crashing whenever \verb|#include| statements in the source code of Cinder projects were edited. I have not been able to find a solution for this except to edit the source code on another IDE and compiling it on Xcode. It might has have something to do with the search path of the autocomplete function in Xcode. Nevertheless, this seems like more of a problem with Xcode than one with Cinder. One thing that did stand out is that Cinder seems to have a much smaller community than openFrameworks. It should be noted, however, that this judgement is based solely off the level of activity on their respective forums as well as the number of projects that use openFrameworks as opposed to Cinder.
 \end{document}
 %%% Local Variables:
 %%% mode: latex
