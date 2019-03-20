@@ -79,7 +79,7 @@ Intuitivity & 7.17    & 5.83   & 4.75    \\ \hline
 
 \subsubsection{Qualitative data}
 The qualitative data was visualised by tagging the comments with various actionable classifications and visualising the counts of those tags on a radar graph. The definition of these tags can be found in Appendix. %add appendix!
-Figures \ref{fig:engagement_radar}, \ref{fig:intuitive_radar}, and \ref{fig:improvement_radar} respectively visualise the results of the comments corresponding to the following three open-ended questions:
+Figures \ref{fig:engagement_radar}, \ref{fig:intuitiveness_radar}, and \ref{fig:improvement_radar} respectively visualise the results of the comments corresponding to the following three open-ended questions:
 
 \begin{enumerate}
 \item {Please elaborate on which parts of the audio-visualisation you found engaging}
@@ -88,24 +88,75 @@ Figures \ref{fig:engagement_radar}, \ref{fig:intuitive_radar}, and \ref{fig:impr
 \end{enumerate}
 
 \begin{figure}
-  \includegraphics[width = 0.9\linewidth]{Survey/qual_Engagement}
-  \caption{Radar graph of comments on ``Engagement''}
+  \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width = 0.9\linewidth]{Survey/qual_engagement_circles}
+    \caption{Circles}
+    \label{fig:engagement_circles}
+  \end{subfigure}
+  \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width = 0.9\linewidth]{Survey/qual_engagement_clouds}
+    \caption{Clouds}
+    \label{fig:engagement_clouds}
+  \end{subfigure}
+  \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width = 0.9\linewidth]{Survey/qual_engagement_shimmer}
+    \caption{Shimmer}
+    \label{fig:engagement_shimmer}
+  \end{subfigure}
+  \caption{Radar graphs of responses to the question \textit{``Please elaborate on which parts of the audio-visualisation you found engaging''} for each animation}
   \label{fig:engagement_radar}
 \end{figure}
 
 \begin{figure}
-  \includegraphics[width = 0.9\linewidth]{Survey/qual_Intuitive}
-  \caption{Radar graph of comments on ``Intuitiveness''}
-  \label{fig:intuitive_radar}
+  \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width = 0.9\linewidth]{Survey/qual_intuitiveness_circles}
+    \caption{Circles}
+    \label{fig:intuitiveness_circles}
+  \end{subfigure}
+  \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width = 0.9\linewidth]{Survey/qual_intuitiveness_clouds}
+    \caption{Clouds}
+    \label{fig:intuitiveness_clouds}
+  \end{subfigure}
+  \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width = 0.9\linewidth]{Survey/qual_intuitiveness_shimmer}
+    \caption{Shimmer}
+    \label{fig:intuitiveness_shimmer}
+  \end{subfigure}
+  \caption{Radar graphs of responses to the question \textit{``Did the visuals react to the audio in the way you expected it to? If not, how did you expect it to react?''} for each animation}
+  \label{fig:intuitiveness_radar}
 \end{figure}
 
 \begin{figure}
-  \includegraphics[width = 0.9\linewidth]{Survey/qual_improve}
-  \caption{Radar graph of comments on ``Improvements''}
+  \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width = 0.9\linewidth]{Survey/qual_improvement_circles}
+    \caption{Circles}
+    \label{fig:improvement_circles}
+  \end{subfigure}
+  \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width = 0.9\linewidth]{Survey/qual_improvement_clouds}
+    \caption{Clouds}
+    \label{fig:improvement_clouds}
+  \end{subfigure}
+  \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width = 0.9\linewidth]{Survey/qual_improvement_shimmer}
+    \caption{Shimmer}
+    \label{fig:improvement_shimmer}
+  \end{subfigure}
+  \caption{Radar graphs of responses to the question \textit{``What other aspects of the audio signal do you feel could have been reflected in the visuals?''} for each animation}
   \label{fig:improvement_radar}
 \end{figure}
 
-As expected, as seen in Figure \ref{fig:engagement_radar}, there are a particularly high counts of ``Clarity'' used to describe what made Circles engaging. In contrast, it was ``Shape'' and ``Complexity'' that made Clouds and Shimmer engaging. In terms of ``Intuitiveness'', as seen in Figure \ref{fig:intuitive_radar}, Shimmer fared the worse, with many counts of ``Unexpected'' and ``Incomplete'' classifications while Circles and Clouds did relatively well with most users finding the visuals reacting in to the audio in the way they expected it to. In terms of possible improvements, we see in Figure \ref{fig:improvement_radar} that in Clouds and Shimmer, participants mostly wanted to see improvements in one or two areas, while there was a wider variety of areas that participants felt Circles could improve in visualising.\par
+As expected, as seen in Figure \ref{fig:engagement_radar}, there are a particularly high counts of ``Clarity'' used to describe what made Circles engaging. In contrast, it was ``Shape'' and ``Complexity'' that made Clouds and Shimmer engaging. In terms of ``Intuitiveness'', as seen in Figure \ref{fig:intuitiveness_radar}, Shimmer fared the worse, with many counts of ``Unexpected'' and ``Incomplete'' classifications while Circles and Clouds did relatively well with most users finding the visuals reacting in to the audio in the way they expected it to. In terms of possible improvements, we see in Figure \ref{fig:improvement_radar} that in Clouds and Shimmer, participants mostly wanted to see improvements in one or two areas, while there was a wider variety of areas that participants felt Circles could improve in visualising.\par
 
 These results will be used guide the next implementation of audio-visualisations. Following which, the various audio-visualisations will be implemented on an SBC, as reviewed in Section \ref{sec:boardreview}, before being benchmarked. 
 \end{document}
