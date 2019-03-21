@@ -1,6 +1,12 @@
 \documentclass{report}
 \usepackage[utf8]{inputenc}
 \usepackage{listings} % this is to allow code formatting in document
+\lstset
+{
+basicstyle=\small\ttfamily,
+columns=flexible,
+breaklines=true
+}
 \usepackage[labelformat=simple]{subcaption}
 \renewcommand\thesubfigure{(\alph{subfigure})}
 \usepackage{graphicx} % allow for figures
@@ -17,12 +23,6 @@
 \addbibresource{../../../BibTeXFiles/thesis_ref.bib} % set bib file for citations
 \usepackage{hyperref} % better linking in document
 \usepackage{pdfpages} % allow for multipage pdf (must be placed AFTER 'xcolor' package for some reason)
-\lstset
-{
-basicstyle=\small\ttfamily,
-columns=flexible,
-breaklines=true
-}
 \usepackage[toc, page]{appendix} % package to add appendix environment
 
 \title{From Audio to Video Signals in Real-time: Design and Implementation of a Portable Video Synthesizer (Initial Thesis)}

@@ -3,6 +3,7 @@ library(tidyr)  # for easy restructuring of data structures
 library(RColorBrewer)  # for colours
 library(plotly)  # for radar graphs
 library(fmsb)  # alternate radar graphs
+library(vioplot)  # for violin plots
 
 add.alpha <- function(col, alpha=1) {  # function to add alpha to rcolorbrewer
   if(missing(col))
@@ -14,6 +15,7 @@ add.alpha <- function(col, alpha=1) {  # function to add alpha to rcolorbrewer
 
 ## Set working directory
 setwd("~/Documents/CapstoneProject/Reports/Initial Thesis/data/")
+setwd("../Desktop/data")  # for computer lab
 ## Read in data
 quant_data <- read.csv("survey_quantitative.csv", stringsAsFactors = FALSE);
 qual_data <- read.csv("survey_qualitative.csv", stringsAsFactors = FALSE);
@@ -74,6 +76,24 @@ barplot(as.matrix(quant_intuitivity[,2:13]), beside = TRUE,
         args.legend = list(x = 50,
                            y = 12,
                            bty = "n"))
+## Violin plots for 'Engagement' and 'Intuitiveness' ratings
+vioplot(quant_engagement$Circles, 
+        quant_engagement$Clouds, 
+        quant_engagement$Shimmer,
+        names = names(quant_engagement[2:4]),
+        col = graph_cols, 
+        main = "Violin plot of 'Engagement' ratings", cex.main = 2,
+        xlab = "Animation", ylab = "Rating (1-10)", cex.axis = 1.2, cex.lab = 1.2,
+        ylim = c(1, 10))
+
+vioplot(quant_intuitivity$Circles, 
+        quant_intuitivity$Clouds, 
+        quant_intuitivity$Shimmer,
+        col = graph_cols, 
+        main = "Violin plot of 'Intuitiveness' ratings", cex.main = 2,
+        xlab = "Animation", ylab = "Rating (1-10)", cex.axis = 1.2, cex.lab = 1.2,
+        ylim = c(1, 10),
+        names = names(quant_intuitivity[2:4]))
 
 # Qualitative data
 # subsetting raw data
