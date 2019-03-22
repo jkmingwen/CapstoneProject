@@ -4,6 +4,7 @@ library(RColorBrewer)  # for colours
 library(plotly)  # for radar graphs
 library(fmsb)  # alternate radar graphs
 library(vioplot)  # for violin plots
+library(plyr)
 
 add.alpha <- function(col, alpha=1) {  # function to add alpha to rcolorbrewer
   if(missing(col))
@@ -19,6 +20,7 @@ setwd("../Desktop/data")  # for computer lab
 ## Read in data
 quant_data <- read.csv("survey_quantitative.csv", stringsAsFactors = FALSE);
 qual_data <- read.csv("survey_qualitative.csv", stringsAsFactors = FALSE);
+ranking_data <- read.csv("survey_rankings.csv");
 
 # Quantitative data
 # subset quantitative data on "Engagement"
@@ -215,4 +217,38 @@ radarchart(qual_improvement[c(1,2,5),], axistype = 1,  # Shimmer
            cglwd = 2, cglcol = "darkgray", cglty = 1,
            title(main = "Shimmer: Tag counts for 'Improvement'", cex.main = 2))
 
+# Ranking visualisations
+rank_col <- brewer.pal(4, "GnBu")
+circle_rank <- ranking_data[1:4]
+clouds_rank <- ranking_data[5:8]
+shimmer_rank <- ranking_data[9:12]
 
+circle_total <- cbind(tabulate(circle_rank$Track.1),
+                      tabulate(circle_rank$Track.2),
+                      c(tabulate(circle_rank$Track.3), 0),
+                      tabulate(circle_rank$Track.4))
+colnames(circle_total) <- c("Track 1", "Track 2", "Track 3", "Track 4")
+barplot(circle_total, beside = T, main = "Circles Track rankings",
+        legend.text = c("#1", "#2", "#3", "#4"),
+        ylab = "Frequency", args.legend = list(x = 22.5, y = 7.5), 
+        col = rev(rank_col))
+
+clouds_total <- cbind(tabulate(clouds_rank$Track.1),
+                      tabulate(clouds_rank$Track.2),
+                      c(tabulate(clouds_rank$Track.3), 0),
+                      c(tabulate(clouds_rank$Track.4), 0))
+colnames(clouds_total) <- c("Track 1", "Track 2", "Track 3", "Track 4")
+barplot(clouds_total, beside = T, main = "Clouds Track rankings",
+        legend.text = c("#1", "#2", "#3", "#4"),
+        ylab = "Frequency", args.legend = list(x = 22.5, y = 10),
+        col = rev(rank_col))
+
+shimmer_total <- cbind(tabulate(shimmer_rank$Track.1),
+                      tabulate(shimmer_rank$Track.2),
+                      c(tabulate(shimmer_rank$Track.3), 0),
+                      tabulate(shimmer_rank$Track.4))
+colnames(shimmer_total) <- c("Track 1", "Track 2", "Track 3", "Track 4")
+barplot(shimmer_total, beside = T, main = "Shimmer Track rankings",
+        legend.text = c("#1", "#2", "#3", "#4"),
+        ylab = "Frequency", args.legend = list(x = 22.5, y = 8.5),
+        col = rev(rank_col))
