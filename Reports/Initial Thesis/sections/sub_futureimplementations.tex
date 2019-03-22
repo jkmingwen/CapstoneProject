@@ -2,26 +2,33 @@
 
 \begin{document}
 \section{Future Implementations}
-The results of the survey in Section \ref{sec:surveys} will be used to guide future implementations of visuals for the video synthesizer. This section will be broken into three parts, corresponding to the intended changes to Circles, Clouds, and Shimmer in subsequent iterations.
+This section will be broken into three parts, corresponding to the intended changes to Circles, Clouds, and Shimmer in subsequent iterations.
 
 \subsection{Circles}
+With Circles, as seen in Figure \ref{fig:improvement_circles}, participants suggested a wide variety of changes that they thought would improve the audio-visualisation. The following changes will be made in order to represent changes in timbre as well as pitch.
 \begin{enumerate}
 \item {Replace ellipses with superellipses, mapping MFCC to the coefficients of the equation that determines the shape of the superellipse}
 \item {Map pitch to alpha values of superellipses}
 \end{enumerate}
+Mapping MFCC to the shapes of superellipses would allow Circles to reflect changes in the timbre of the audio signal. By mapping pitch to alpha values, Circles would be able to have some kind of variation in colour without making the visual changes too drastic.
+
 \subsection{Clouds}
+As seen in Figure \ref{fig:improvement_clouds}, survey participants largely called for increased responsiveness, colours, and clarity for Clouds. The following changes will address those suggestions.
 \begin{enumerate}
 \item {Tweak particle cloud algorithm so that spikes in amplitude lead to more movement in particle cloud}
 \item {Map pitch to colours of particles}
 \item {Map MFCC to propensity for lines to be drawn between particles}
 \end{enumerate}
+The most important change of the three listed above is the first item. Making the particles more sensitive to volume changes would likely lead to a greater sense of responsiveness and clarity amongst viewers.
+
 \subsection{Shimmer}
+From Figure \ref{fig:improvement_shimmer}, it can be seen that clarity was one of the improvements that participants wanted to see in subsequent iterations. The changes made to Shimmer are therefore primarily aimed at improving the clarity of the animation.
 \begin{enumerate}
-\item {Map pitches to points along Perlin Noise function}
+\item {Map pitches to changes in ripple shapes}
 \item {Map tempo to speed of rotation}
 \item {Map volume to alpha variation}
 \end{enumerate}
-
+Mapping the pitch of the audio signal to points along Perlin Noise function would make the ripple shapes change whenever a different note or chord is played. This would aid in providing a sense of clarity and give some variation to the visuals. By mapping tempo to the speed of rotation, the visuals would likely be perceived as more intuitive in its audio to visual mapping.
 \end{document}
 %%% Local Variables:
 %%% mode: latex
