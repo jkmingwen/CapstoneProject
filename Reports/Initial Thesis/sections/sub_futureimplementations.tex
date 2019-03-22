@@ -5,8 +5,22 @@
 The results of the survey in Section \ref{sec:surveys} will be used to guide future implementations of visuals for the video synthesizer. This section will be broken into three parts, corresponding to the intended changes to Circles, Clouds, and Shimmer in subsequent iterations.
 
 \subsection{Circles}
+\begin{enumerate}
+\item {Replace ellipses with superellipses, mapping MFCC to the coefficients of the equation that determines the shape of the superellipse}
+\item {Map pitch to alpha values of superellipses}
+\end{enumerate}
 \subsection{Clouds}
+\begin{enumerate}
+\item {Tweak particle cloud algorithm so that spikes in amplitude lead to more movement in particle cloud}
+\item {Map pitch to colours of particles}
+\item {Map MFCC to propensity for lines to be drawn between particles}
+\end{enumerate}
 \subsection{Shimmer}
+\begin{enumerate}
+\item {Map pitches to points along Perlin Noise function}
+\item {Map tempo to speed of rotation}
+\item {Map volume to alpha variation}
+\end{enumerate}
 
 \end{document}
 %%% Local Variables:
