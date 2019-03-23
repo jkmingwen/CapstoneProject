@@ -1,6 +1,8 @@
 #pragma once
 
 #include "ofMain.h"
+#include <iostream>
+#include <fstream>
 
 class ofApp : public ofBaseApp{
 
@@ -22,6 +24,7 @@ public:
     void gotMessage(ofMessage msg);
     void addNewParticle();
     void audioIn(ofSoundBuffer &input);
+    void exit();
 
     // Define variables for audio
     // We create 3 separate buffers:
@@ -50,5 +53,7 @@ public:
 
     int cloudDensity; // this will determine how dense the particle cloud is
     float frictionCoef; // how quickly particles slow down
-
+    
+    ofFile myFile;
+    int lineCount;
 };

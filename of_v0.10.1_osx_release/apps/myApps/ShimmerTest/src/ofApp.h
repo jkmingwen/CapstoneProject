@@ -58,4 +58,7 @@ public:
     vector <ofVec2f> part_flow;
     
     ofPolyline line;
+    
+    ofFile myFile;
+    int lineCount;
 };

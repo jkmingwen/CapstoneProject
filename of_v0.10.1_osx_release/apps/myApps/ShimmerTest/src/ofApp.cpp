@@ -46,6 +46,8 @@ void ofApp::setup()
 //        force.push_back(ofVec2f(0, 0));
 //        part_flow.push_back(ofVec2f(0, -1));
 //    }
+    myFile.open("shimmer_timings.txt", ofFile::WriteOnly); // create file
+    lineCount = 0; // count number of lines written
 }
 
 //--------------------------------------------------------------
@@ -104,6 +106,12 @@ void ofApp::draw()
     auto elapsed_u = end_u - start_u;
     double total_u = elapsed_u.count() / 1000000.0; // ms duration
     ofDrawBitmapString(total_u, 4, 60);
+    
+    if (lineCount < 5000)
+    {
+        myFile << to_string(total_u) << "\n";
+        lineCount++;
+    }
 }
 
 //--------------------------------------------------------------
@@ -208,4 +216,10 @@ float ofApp::RMS(vector <float> left, vector <float> right)
     //    smoothedVol += 0.07 * rms;
     
     return rms;
+}
+
+//--------------------------------------------------------------
+void ofApp::exit()
+{
+    myFile.close();
 }

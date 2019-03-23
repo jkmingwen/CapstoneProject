@@ -1,5 +1,6 @@
 #include "ofApp.h"
-
+#include <iostream>
+#include <fstream>
 //--------------------------------------------------------------
 void ofApp::setup()
 {
@@ -31,6 +32,9 @@ void ofApp::setup()
     settings.numInputChannels = 2; // stereo
     settings.bufferSize = bufferSize;
     soundStream.setup(settings);
+    
+    myFile.open("clouds_timings.txt", ofFile::WriteOnly); // create file
+    lineCount = 0; // count number of lines written
 }
 
 //--------------------------------------------------------------
@@ -122,6 +126,12 @@ void ofApp::draw()
     auto elapsed_u = end_u - start_u;
     double total_u = elapsed_u.count() / 1000000.0; // ms duration
     ofDrawBitmapString(total_u, 4, 60);
+    
+    if (lineCount < 5000)
+    {
+        myFile << to_string(total_u) << "\n";
+        lineCount++;
+    }
 }
 
 //--------------------------------------------------------------
@@ -215,4 +225,10 @@ void ofApp::gotMessage(ofMessage msg){
 //--------------------------------------------------------------
 void ofApp::dragEvent(ofDragInfo dragInfo){ 
     
+}
+
+//--------------------------------------------------------------
+void ofApp::exit()
+{
+    myFile.close();
 }
