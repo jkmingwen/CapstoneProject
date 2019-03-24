@@ -252,3 +252,15 @@ barplot(shimmer_total, beside = T, main = "Shimmer Track rankings",
         legend.text = c("#1", "#2", "#3", "#4"),
         ylab = "Frequency", args.legend = list(x = 22.5, y = 8.5),
         col = rev(rank_col))
+
+### Code timings ###
+# Read in data
+circles_timings <- read.csv("circles_timings.txt", sep = "\n", header = FALSE)
+clouds_timings <- read.csv("clouds_timings.txt", sep = "\n", header = FALSE)
+shimmer_timings <- read.csv("shimmer_timings.txt", sep = "\n", header = FALSE)
+
+# Plot timings in boxplots
+boxboi <- boxplot(c(circles_timings, clouds_timings, shimmer_timings),
+                  names = c("Circles", "Clouds", "Shimmer"),
+                  main = "Computation timings")
+tabulate(boxboi$group)  # number of outliers per animation
