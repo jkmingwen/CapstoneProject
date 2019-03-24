@@ -29,6 +29,7 @@ public:
     void gotMessage(ofMessage msg);
     void audioIn(ofSoundBuffer &input);
     float RMS(vector <float> left, vector <float> right);
+    void exit();
     
     vector <float> left;
     vector <float> right;

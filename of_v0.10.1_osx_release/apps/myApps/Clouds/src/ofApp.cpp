@@ -33,8 +33,10 @@ void ofApp::setup()
     settings.bufferSize = bufferSize;
     soundStream.setup(settings);
     
-    myFile.open("clouds_timings.txt", ofFile::WriteOnly); // create file
-    lineCount = 0; // count number of lines written
+     // create file to record timings
+    myFile.open("../../../../../../Reports/Initial Thesis/data/clouds_timings.txt",
+                ofFile::WriteOnly);
+    lineCount = 0; // track number of lines written
 }
 
 //--------------------------------------------------------------
@@ -131,6 +133,11 @@ void ofApp::draw()
     {
         myFile << to_string(total_u) << "\n";
         lineCount++;
+        ofDrawBitmapString(to_string(lineCount), 15, 60);
+    }
+    else
+    {
+        ofDrawBitmapString("Timings taken!", 15, 60);
     }
 }
 

@@ -46,8 +46,10 @@ void ofApp::setup()
 //        force.push_back(ofVec2f(0, 0));
 //        part_flow.push_back(ofVec2f(0, -1));
 //    }
-    myFile.open("shimmer_timings.txt", ofFile::WriteOnly); // create file
-    lineCount = 0; // count number of lines written
+    // create file to record timings
+    myFile.open("../../../../../../Reports/Initial Thesis/data/shimmer_timings.txt",
+                ofFile::WriteOnly);
+    lineCount = 0; // track number of lines written
 }
 
 //--------------------------------------------------------------
@@ -111,6 +113,11 @@ void ofApp::draw()
     {
         myFile << to_string(total_u) << "\n";
         lineCount++;
+        ofDrawBitmapString(to_string(lineCount), 15, 60);
+    }
+    else
+    {
+        ofDrawBitmapString("Timings taken!", 15, 60);
     }
 }
 
