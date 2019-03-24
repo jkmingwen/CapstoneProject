@@ -20,7 +20,7 @@ void ofApp::setup()
     volHistory.assign(400, 0.0);
     
     // initialising ofSoundStreamSettings
-    auto devices = soundStream.getMatchingDevices("UR22"); // <- name of input device
+    auto devices = soundStream.getMatchingDevices("default"); // <- name of input device
     if (!devices.empty())
     {
         settings.setInDevice(devices[0]);
