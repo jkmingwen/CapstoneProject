@@ -259,8 +259,23 @@ circles_timings <- read.csv("circles_timings.txt", sep = "\n", header = FALSE)
 clouds_timings <- read.csv("clouds_timings.txt", sep = "\n", header = FALSE)
 shimmer_timings <- read.csv("shimmer_timings.txt", sep = "\n", header = FALSE)
 
+circles_odroid <- read.csv("circles_timings_odroid.txt", sep = "\n", header = FALSE)
+clouds_odroid <- read.csv("clouds_timings_odroid.txt", sep = "\n", header = FALSE)
+shimmer_odroid <- read.csv("shimmer_timings_odroid.txt", sep = "\n", header = FALSE)
+
 # Plot timings in boxplots
 boxboi <- boxplot(c(circles_timings, clouds_timings, shimmer_timings),
                   names = c("Circles", "Clouds", "Shimmer"),
                   main = "Computation timings")
 tabulate(boxboi$group)  # number of outliers per animation
+
+boxdroid <- boxplot(c(circles_odroid, clouds_odroid, shimmer_odroid),
+                    names = c("Circles", "Clouds", "Shimmer"),
+                    main = "Odroid computation timings")
+tabulate(boxdroid$group)  # number of outliers per animation
+boxdroid2 <- boxplot(c(circles_odroid, clouds_odroid),
+                    names = c("Circles", "Clouds"),
+                    main = "Odroid computation timings",
+                    outline = FALSE)
+boxplot(shimmer_odroid, names = "Shimmer")
+
