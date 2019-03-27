@@ -79,13 +79,14 @@ barplot(as.matrix(quant_intuitivity[,2:13]), beside = TRUE,
                            y = 12,
                            bty = "n"))
 ## Violin plots for 'Engagement' and 'Intuitiveness' ratings
+
 vioplot(quant_engagement$Circles, 
         quant_engagement$Clouds, 
         quant_engagement$Shimmer,
         names = names(quant_engagement[2:4]),
         col = graph_cols, 
         main = "Violin plot of 'Engagement' ratings", cex.main = 2,
-        xlab = "Animation", ylab = "Rating (1-10)", cex.axis = 1.2, cex.lab = 1.2,
+        xlab = "Animation", ylab = "Rating (1-10)", cex.axis = 1.7, cex.lab = 1.8,
         ylim = c(1, 10))
 
 vioplot(quant_intuitivity$Circles, 
@@ -93,7 +94,7 @@ vioplot(quant_intuitivity$Circles,
         quant_intuitivity$Shimmer,
         col = graph_cols, 
         main = "Violin plot of 'Intuitiveness' ratings", cex.main = 2,
-        xlab = "Animation", ylab = "Rating (1-10)", cex.axis = 1.2, cex.lab = 1.2,
+        xlab = "Animation", ylab = "Rating (1-10)", cex.axis = 1.7, cex.lab = 1.8,
         ylim = c(1, 10),
         names = names(quant_intuitivity[2:4]))
 
