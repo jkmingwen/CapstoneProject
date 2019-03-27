@@ -36,9 +36,7 @@ breaklines=true
 \tableofcontents
 \newpage
 
-\section*{Introduction}
-\markright{}
-\addcontentsline{toc}{section}{Introduction}
+\chapter{Introduction}
 % check citations for this paragraph!
 Video synthesizers started off as ``machines that electronically manipulated a video signal or a cathode ray tube to produce abstract or distorted images'' \cite{Collopy2014}. The various video synthesizers built by John and James Whitney \cite{Patterson2009}, Eric Siegel \cite{ElectronicArtsIntermix}, Nam June Paik and Shuya Abe \cite{Furlong1983}, and Stephen Beck \cite{Beck1992} --- amongst others --- expanded the scope of methods with which visuals could be produced. The gradual digitalisation of video synthesizers introduced even more means with which one could manipulate and produce a visual signal \cite{Collopy2014}. A video synthesizer can thus be broadly understood as a tool that takes in some form of input and manipulates or utilises said input to produce a visual signal. One possible input for a video synthesizer is an audio signal --- this is not an uncommon technique --- both Windows Media Player and iTunes have music visualisation functions that react to the audio signal of the media being played. These add a visual dimension to what was once purely an aural sensory experience and allows users to enjoy music in more active ways than conventional passive music consumption \cite{Casey2008}. \par
 
@@ -90,10 +88,7 @@ The paper ends with a summary of what has been accomplished over the course of t
 \subfile{sections/sub_surveys}
 \subfile{sections/sub_futureimplementations}
 
-\section*{Conclusion}
-\markright{}
-\addcontentsline{toc}{section}{Conclusion}
-
+\chapter{Conclusion}
 There are several things that were accomplished in this study. By reviewing the fields of audiovisual expression and existing video synthesizers, we established the motivations behind implementing a video synthesizer that maps audio inputs to visual outputs. The field of MIR provided us with the appropriate means of extracting and measuring low-level audio features. Tracking these low-level audio features allows us to map features of an audio signal to changes in the visuals produced. The review of frameworks and boards gave us the tools which were used to implement a video synthesizer.
 
 Ultimately, this project showed that a video synthesizer that maps a live audio signal to complex visuals in real-time is achievable using current open-source frameworks --- furthermore, it showed that these audiovisuals can be implemented on an affordable SBC and remain within the bounds of just-noticable latency. Implementing a portable video synthesizer that translates audio to visual signals in real-time is therefore made feasible by utilising the processing capabilities of increasingly powerful, compact, and affordable SBCs available to us. Moving forward, in designing visuals that react to an audio signal, it would be interesting to observe the ability for different audiovisualisations to hold a viewer's attention and if any patterns emerge from a larger scale study similar to the survey conducted. It would also be interesting to see how complex the visuals can be while continuing to react to an audio signal in real-time.
