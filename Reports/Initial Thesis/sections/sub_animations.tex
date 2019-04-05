@@ -37,7 +37,7 @@ Clouds is based on Konstantin Makhmutov's swarming algorithm in \textit{Wobbly S
 \end{figure}
 
 \subsection{Shimmer}
-Shimmer is made up of an array of lines that spin about fixed points to form ripple effects that slowly spread out across the screen, as seen in Figure \ref{fig:shimmer1}. The angle of each line's rotation is determined by a Perlin Noise function that is increasingly offset with each element. Perlin Noise is also used to determine the alpha value, which forms a vignette that moves across the screen independently of the audio signal. The volume of the audio signal determines the speed of the rotation. It is distinct from the other two animations as there are multiple points of interest for the viewer to focus on --- all elements are spread across the screen and are constantly in motion. Furthermore, the movement of the ripples are in both x and y-axes and thus form more complex movements than those seen in Circles. This animation was an attempt to adhere to Sa's principles for designing visuals, as mentioned in \ref{sec:initialcandidates}. Drastic changes in the visuals are limited and the mapping from audio to visual is less clear in comparison the other two audiovisualisations.
+Shimmer is made up of an array of lines that spin about fixed points to form ripple effects that slowly spread out across the screen, as seen in Figure \ref{fig:shimmer1}. The angle of each line's rotation is determined by a Perlin Noise function that is increasingly offset with each element. The volume of the audio signal determines the speed of the rotation. Perlin Noise is also used to determine the alpha value of each line: this forms vignettes that move across the screen independently of the audio signal. It is distinct from the other two animations as there are multiple points of interest for the viewer to focus on --- all elements are spread across the screen and are constantly in motion. The movement of the ripples are in both x and y-axes, and the vignette's movements are completely independent of the audio signal. Shimmer's movements are thus more complex than those seen in Circles and less hurried than those in Clouds. Drastic changes in the visuals are limited and the mapping from audio to visual is less clear in comparison the other two audiovisualisations --- it therefore represents the strictest attempt at adhering to Sa's principles for designing visuals as mentioned in \ref{sec:initialcandidates}. 
 
 \begin{figure}
   \begin{subfigure}{0.5\textwidth}
@@ -48,7 +48,7 @@ Shimmer is made up of an array of lines that spin about fixed points to form rip
     \includegraphics[width = 0.9\linewidth]{Survey/shimmer2}
     \caption{After a few moments}
   \end{subfigure}
-  \caption{\href{https://youtu.be/40OoNjl2jPE}{Shimmer reacting to an audio signal}}
+  \caption{\href{https://vimeo.com/327859350}{Shimmer reacting to an audio signal}}
   \label{fig:shimmer1}
 \end{figure}
 \end{document}
