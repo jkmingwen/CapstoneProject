@@ -272,12 +272,18 @@ tabulate(boxboi$group)  # number of outliers per animation
 
 boxdroid <- boxplot(c(circles_odroid, clouds_odroid, shimmer_odroid),
                     names = c("Circles", "Clouds", "Shimmer"),
-                    main = "Odroid computation timings")
+                    main = "Computation timings (Odroid XU4)")
 boxdroid$stats  # min, lower quartile, median, upper quartile, max
 tabulate(boxdroid$group)  # number of outliers per animation
 boxdroid2 <- boxplot(c(circles_odroid, clouds_odroid),
                     names = c("Circles", "Clouds"),
-                    main = "Odroid computation timings",
-                    outline = FALSE)
-boxplot(shimmer_odroid, names = "Shimmer", main = "Odroid computation timings pt.2")
+                    main = "Computation timings (Odroid XU4)",
+                    ylab = "Latency (ms)", xlab = "Animation",
+                    outline = FALSE, col = graph_cols[1:2], 
+                    cex.lab = 1.3, cex.axis = 1.2)
+boxplot(shimmer_odroid, show.names = TRUE, names = "Shimmer",
+        main = "Computation timings (Odroid XU4)",
+        ylab = "Latency (ms)",
+        xlab = "Animation", outline = FALSE, col = graph_cols[3],
+        cex.lab = 1.3, cex.axis = 1.2)
 
