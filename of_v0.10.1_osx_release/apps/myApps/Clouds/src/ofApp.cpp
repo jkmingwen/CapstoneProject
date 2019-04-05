@@ -21,7 +21,7 @@ void ofApp::setup()
     volHistory.assign(400, 0.0);
     
     // initialising ofSoundStreamSettings
-    auto devices = soundStream.getMatchingDevices("default"); // <- name of input device
+    auto devices = soundStream.getMatchingDevices("UR22"); // <- name of input device
     if (!devices.empty()) // sets to first input device as backup
     {
         settings.setInDevice(devices[0]);
@@ -59,7 +59,7 @@ void ofApp::draw()
 {
     auto start_u = std::chrono::system_clock::now();
     
-    ofDrawBitmapString(scaledVol, 20, 20);
+//    ofDrawBitmapString(scaledVol, 20, 20);
     ofSetColor(255, 255, 255, 125);
     
     for (int particleA = 0; particleA < mass.size(); particleA++)
@@ -127,18 +127,18 @@ void ofApp::draw()
     auto end_u = std::chrono::system_clock::now();
     auto elapsed_u = end_u - start_u;
     double total_u = elapsed_u.count() / 1000000.0; // ms duration
-    ofDrawBitmapString(total_u, 4, 60);
+//    ofDrawBitmapString(total_u, 4, 60);
     
-    if (lineCount < 5000)
-    {
-        myFile << to_string(total_u) << "\n";
-        lineCount++;
-        ofDrawBitmapString(to_string(lineCount), 15, 60);
-    }
-    else
-    {
-        ofDrawBitmapString("Timings taken!", 15, 60);
-    }
+//    if (lineCount < 5000)
+//    {
+//        myFile << to_string(total_u) << "\n";
+//        lineCount++;
+//        ofDrawBitmapString(to_string(lineCount), 15, 60);
+//    }
+//    else
+//    {
+//        ofDrawBitmapString("Timings taken!", 15, 60);
+//    }
 }
 
 //--------------------------------------------------------------
