@@ -2,6 +2,7 @@
 
 \begin{document}
 \section{Computation Timings} \label{sec:timings}
+The three animations were implemented on an Odroid XU4: a SBC that was selected based off its processing capabilities, dimensions, and price. In order to determine the latency between audio input and video output, the time required to generate each new frame was measured. 5000 timings were taken for each animation --- boxplots of the measurements can be seen in Figure \ref{fig:comp_timings}. It is evident from Figure \ref{fig:timings_circlesclouds} that both Circles and Clouds have a latency that lies within the range of control intimacy. On the other hand, as seen in Figure \ref{fig:timings_shimmer}, the latency of Shimmer is well beyond 10ms when run on the Odroid. By separately taking the timings of various steps of the frame rendering function, it was found that the bulk of the latency comes from rendering the array of lines on the screen.
 
 \begin{figure}
   \begin{subfigure}{0.5\textwidth}
