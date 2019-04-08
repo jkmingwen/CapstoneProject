@@ -19,8 +19,9 @@ There are many elements and terms used to describe music. As an in depth explana
 
 Once again, this list is only a subset of the many music elements and terms. For readers who are interested in learning more, Nicola Orio's \textit{Music Retrieval: A Tutorial and Review} \cite{Orio2006} would be a good place to start for or a comprehensive explanation of the many music elements and terms.
 
-\subsection{Low-level audio features in content-based MIR}\label{sec:lowlevelaudio}
-The field of MIR is concerned with enabling access to music collections through retrieval systems where the various representations of music, such as metadata, notation, or the music itself, are mapped to pieces of music \cite{Downie}. While this project is not concerned with the goals of MIR, the various methods and strategies developed in research on MIR systems to extract information from audio signals will be useful for the purpose of implementing a video synthesizer. This project requires extracting music information from a live audio signal --- the techniques related to this lie within a subset of MIR known as content-based MIR \cite{Casey2008}. Working with a live audio signal means that we do not have direct access to higher level music information such as metadata, notation, or any of the basic music elements described above. Methods used to extract and analyse low-level audio features will therefore be used. Low-level audio features are measurements of audio signals that contain information about a musical work and music performance \cite{Casey2008} --- the term refers to the raw quantitative information of an audio signal. Once extracted, these low-level features can then be used as a means to measure basic music elements. The various methods of extracting low-level audio features from an audio signal will be listed below --- these descriptions were referenced from Michael Casey et al.'s paper on content-based MIR \cite{Casey2008}.
+% \subsection{Low-level audio features in content-based MIR}\label{sec:lowlevelaudio}
+\subsection{Audio features in content-based MIR}\label{sec:lowlevelaudio}
+The field of MIR is concerned with enabling access to music collections through retrieval systems where the various representations of music, such as metadata, notation, or the music itself, are mapped to pieces of music \cite{Downie}. While this project is not concerned with the goals of MIR, the various methods and strategies developed in research on MIR systems to extract information from audio signals will be useful for the purpose of implementing a video synthesizer. This project requires extracting music information from a live audio signal --- the techniques related to this lie within a subset of MIR known as content-based MIR \cite{Casey2008}. Working with a live audio signal means that we do not have direct access to higher level music information such as metadata, notation, or any of the basic music elements described above. Methods used to extract and analyse low-level audio features will therefore be used. Low-level audio features are measurements of audio signals that contain information about a musical work and music performance \cite{Casey2008} --- the term refers to the raw quantitative information of an audio signal. Once extracted, these low-level features can then be used as a means to measure basic music elements. The various methods of extracting low-level audio features from an audio signal will be listed below --- these descriptions were mostly referenced from Michael Casey et al.'s paper on content-based MIR \cite{Casey2008}; descriptions from other sources are cited accordingly.
 
 \paragraph{Short-Time Magnitude Spectrum}
 The Short-Time Magnitude Spectrum essentially refers to the spectrum obtained through windowed fast Fourier transforms (FFTs). Low-level feature extraction methods tend to involve the use of windowed FFTs as their first step. FFTs decompose a signal to its constituent frequencies and their relative magnitudes --- these are then grouped into evenly spaced frequency bands in order to analyze the spectrum of frequencies present in a given sample of audio.
@@ -44,8 +45,15 @@ Spectral flux is a measure of the rate of change of power in each spectral band.
 The decibel scale, simply put, is a measure of loudness with a scale that resembles the ear's response. It is a logarithmic scale of power as opposed to a linear scale.
 
 \paragraph{Tempo Tracking}
-Tempo tracking follows from onset detection over a period of time. It allows us to estimate the rhythm of an audio signal.\\
-\par
+Tempo tracking follows from onset detection over a period of time. It allows us to estimate the rhythm of an audio signal.
+
+\paragraph{Spectral centroid}
+Spectral centroid refers to the distribution of power of the various frequencies in a signal. It correlates to the timbral quality of brightness in an audio signal \cite{Schubert}.
+
+\paragraph{Zero-crossing rate}
+Zero-crossing rate (ZCR) is a measure of the number of times a signal changes sign in a given time frame. A periodic sounds tend to have a lower ZCR while noisier sounds tend to have a higher ZCR \cite{Peeters2004}.
+
+\vspace{\baselineskip}
 
 For a more in depth explanation of the methods used in MIR, including those listed above, Casey et al.'s paper on \textit{Content-Based Music Information Retrieval} \cite{Casey2008} provides an excellent review of the current field of MIR. Stephen Downie's paper \cite{Downie} on the Music Information Retrieval Evaluation eXchange (MIREX) is another good introduction to the field. \par
 
