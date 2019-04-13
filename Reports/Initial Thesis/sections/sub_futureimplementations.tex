@@ -2,10 +2,11 @@
 
 \begin{document}
 \section{Future Implementations}
-The visuals implemented thus far react only to the intensity of an audio signal. The intensity of the audio signal is used in different ways for each visual. For example, Circles maps the amplitude of each sample in the buffer to the displacement of an ellipse along the y-axis while Shimmer involves mapping the RMS of the buffer to the speed of rotation of an array of lines. That said, there are other audio features that have yet to be utilised. There thus remains room for improvement for all three visuals: this could come in the form of altering the current audio to visual mapping, extending the mapping of audio features to visual output, or reducing the latency between audio input and video output. This section therefore consists of three parts corresponding to the possible improvements made to each of the three visuals in subsequent iterations.
+The visuals implemented thus far react only to the intensity of an audio signal. The intensity of the audio signal is used in different ways for each visual. For example, Circles maps intensity to the radii of the ellipses while Shimmer involves mapping intensity to the speed of rotation of an array of lines. That said, there are other audio features that have yet to be utilised. There thus remains room for improvement for all three visuals: this could come in the form of altering the current audio to visual mapping, extending the mapping of audio features to visual output, or reducing the latency between audio input and video output. This section is therefore broken into two parts: possible improvements in visual design and improvements in implementation.
 
-\subsection{Circles}
-With Circles, as seen in Figure \ref{fig:improvement_circles}, participants suggested a wide variety of changes that they thought would improve the audio-visualisation. The following changes will be made in order to represent changes in pitch as well as timbre.
+\subsection{Visual Design}
+\subsubsection{Circles}
+With Circles, as seen in Figure \ref{fig:improvement_circles}, participants suggested a wide variety of changes that they thought would improve the audio-visualisation. The following changes could be made in order to represent changes in pitch as well as timbre.
 
 \begin{enumerate}
 \item {Map pitch to colours of ellipses}
@@ -14,18 +15,18 @@ With Circles, as seen in Figure \ref{fig:improvement_circles}, participants sugg
 
 Mapping pitch to the colours of ellipses would allow for another dimension for variations in Circles over time. This would likely involve the use of a pitch-class profile to classify the fundamental frequency of the audio signal as a pitch. The pitch would then be mapped to a range of colours with which the ellipses could be coloured. A decision would then have to be made about how reactive the colour changes are to changes in pitch. Mapping timbral brightness to the alpha values of the ellipses would involve calculating the spectral centroid of the audio signal as a measure of its perceived brightness \cite{Schubert}. This would then be mapped to the alpha values of the ellipses, thereby allowing Circles to reflect changes in the timbre of the audio signal through changes in the opacity of its visual elements.
 
-\subsection{Clouds}
-As seen in Figure \ref{fig:improvement_clouds}, survey participants largely called for increased responsiveness, colours, and clarity for Clouds. The following changes will address those suggestions.
+\subsubsection{Clouds}
+As seen in Figure \ref{fig:improvement_clouds}, survey participants largely called for increased responsiveness, colours, and clarity for Clouds. The following changes would address those suggestions.
 
 \begin{enumerate}
-\item {Update particle cloud algorithm such that increased intensity leads to more movement in particle cloud}
+\item {Make movements of particles more sensitive to intensity changes}
 \item {Map pitch to colours of particles}
 \item {Map noisiness of audio signal to propensity for lines to be drawn between particles}
 \end{enumerate}
 
-Making the movement of the particles more sensitive to intensity changes would likely lead to a greater sense of responsiveness and clarity amongst viewers. Just like in Circles, mapping the pitch of the audio signal to colours would give Clouds another dimension of variation over time. Similar considerations as those in Circles would have to be made with regards to the range of colours mapped to each pitch as well as how responsive the colour changes are to changes in pitch. Finally, ZCR could be used as a measure of the noisiness of the audio signal --- this could be mapped to an increased probability for lines to be drawn between particles, thereby increasing the number of visual elements to a correspondingly more convoluted audio input. 
+Making the movement of the particles more sensitive to intensity changes would likely lead to a greater sense of responsiveness and clarity amongst viewers. Just like in Circles, mapping the pitch of the audio signal to colours would give Clouds another dimension of variation over time. Similar considerations as those in Circles would have to be made with regards to the range of colours mapped to each pitch as well as how responsive the colour changes are to changes in pitch. Finally, ZCR could be used as a measure of the noisiness of the audio signal \cite{Peeters2004} --- this could be mapped to an increased probability for lines to be drawn between particles, thereby increasing the number of visual elements to a correspondingly more convoluted audio input. There is a limitation to using ZCR as a measure of noisiness in a signal as it is also correlated to the frequency of the signal. Nonetheless, this would contribute to generating a more fungible audio to visual mapping. Furthermore, the precision of ZCR as a measure of noisiness is not particularly crucial considering that the video synthesizer is more likely to be utilised as a tool for artistic expression than a means of precisely visualising a signal.
 
-\subsection{Shimmer}\label{sec:lowlevelaudio}
+\subsubsection{Shimmer}\label{sec:lowlevelaudio}
 From Figure \ref{fig:improvement_shimmer}, it can be seen that clarity was one of the improvements that many participants wanted to see in subsequent iterations of Shimmer. Several participants also asked for some kind of visual representation of pitch. Some changes that could be made to Shimmer to address these suggestions are listed below:
 
 \begin{enumerate}
@@ -35,9 +36,12 @@ From Figure \ref{fig:improvement_shimmer}, it can be seen that clarity was one o
 \item {Implement on OpenGL}
 \end{enumerate}
 
-There are several approaches that could be taken to map the pitch of an audio signal to changes in the ripple formations in Shimmer. One approach would to alter seed values of the Perlin Noise function according to changes in pitch. Changes in pitch would then lead to changes in ripple shapes. Another possible approach would be to map changes in pitch to large jumps along a Perlin Noise function. This would also make the ripple shapes change whenever the pitch of the audio signal changes. This would aid in providing some variation to the visuals, as well as providing a sense of responsiveness to the audio to visual mapping. Furthermore, mapping rhythm rather than intensity to the speed of rotation would likely lead to a more intuitive audio to visual mapping. Finally, mapping intensity to the alpha values of lines would provide viewers with another intuitive audio to visual mapping.\par
+There are several approaches that could be taken to map the pitch of an audio signal to changes in the ripple formations in Shimmer. One approach would to alter seed values of the Perlin Noise function according to changes in pitch --- changes in pitch would then lead to changes in ripple shapes. Another possible approach would be to map changes in pitch to large jumps along a Perlin Noise function. This would also make the ripple shapes change whenever the pitch of the audio signal changes. This would aid in providing some variation to the visuals, as well as providing a sense of responsiveness to the audio to visual mapping. Mapping rhythm rather than intensity to the speed of rotation would likely lead to a more intuitive audio to visual mapping. Finally, mapping intensity to the alpha values of lines would provide viewers with another intuitive audio to visual mapping.\par
 
-Another aspect of Shimmer that needs to be addressed is its latency --- as seen in Figure \ref{fig:timings_shimmer}, its latency is well above the threshold of 10ms required for control intimacy. As graphics rendering comprises the bulk of the latency, one way that this could be addressed is by implementing Shimmer on OpenGL; this would likely lead to a significant decrease in latency.
+\subsection{Implementation}
+A significant aspect of the video synthesizer that need to be addressed is latency --- as seen in Figure \ref{fig:timings_shimmer}, this is particularly pertinent to Shimmer; its latency is well above the threshold of 10ms required for control intimacy. An initial step that could be taken would be to optimise the code by separating data computing and graphics rendering into different functions. This would allow us to process the audio signal on one thread and render graphics on another. Furthermore, as graphics rendering comprises the bulk of the latency, one way that latency could be addressed is by implementing Shimmer on OpenGL --- this would likely lead to a significant decrease in latency. \par
+
+Another aspect that could be addressed is having the video synthesizer react to the audio input of different instruments. In this project, the visuals designed were tested and calibrated to the audio signals from an electric guitar due to the convenience of it already transmitting signals using a line out. Nonetheless, we could start to expand the use cases of this video synthesizer by distinguishing between tonal and percussive sounds by using ZCR, for example. Going further, we could have presets that are calibrated specifically to the sonic characteristics of different types of instruments, taking things like its frequency range and timbral qualities into account.
 \end{document}
 %%% Local Variables:
 %%% mode: latex
