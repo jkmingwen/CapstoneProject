@@ -4,17 +4,21 @@
 \section{Computation Timings} \label{sec:timings}
 The three visuals were implemented on an Odroid XU4: the SBC that was selected based off its processing capabilities, dimensions, and price --- factors that were explained in Section \ref{sec:boardreview}. In order to determine the latency between audio input and video output, the time required to generate each new frame was measured. 5000 timings were taken for each visual --- boxplots of the measurements can be seen in Figure \ref{fig:comp_timings}.
 
-We also need to account for the sampling latency from reading the audio signal into a buffer. With a sampling rate of 44100Hz and a buffer size of 256 samples, we can estimate the time required to fill up a buffer with the specified number of samples. The calculations for the estimated sampling latency are as follows:
+We also need to account for the sampling latency from reading the audio signal into a buffer. The formula to calculate the estimated sampling latency is
+\begin{equation*}
+  L = \frac{1}{r} \times b
+\end{equation*}
+where $L$ refers to sampling latency (in seconds), $r$ refers to sampling rate, and $b$ refers to buffer size. With a sampling rate of 44100Hz and a buffer size of 256 samples, we can estimate the time required to fill up a buffer with the specified number of samples:
 
 \begin{align*}
   L &= \frac{1}{r} \times b\\
           &= \frac{1}{44100} \times 256\\
-          &\approx 5.8 \times 10^-3
+          &\approx 5.8 \times 10^-3.
 \end{align*}
 
-where $L$ refers to sampling latency, $r$ refers to sampling rate, and $b$ refers to buffer size. Along with an estimated sampling latency of 5.8ms, it is evident from Figure \ref{fig:timings_circlesclouds} that both Circles and Clouds have latencies that lie within the range of control intimacy. On the other hand, as seen in Figure \ref{fig:timings_shimmer}, the latency of Shimmer is well beyond 10ms when run on the Odroid. By separately taking the timings of various steps of the frame rendering function, it was found that the bulk of computation latency in Shimmer comes from rendering the array of lines on the screen.
+Along with an estimated sampling latency of 5.8ms, it is evident from Figure \ref{fig:timings_circlesclouds} that both Circles and Clouds have latencies that lie within the range of control intimacy. On the other hand, as seen in Figure \ref{fig:timings_shimmer}, the latency of Shimmer is well beyond 10ms when run on the Odroid. By separately taking the timings of various steps of the frame rendering function, it was found that the bulk of computation latency in Shimmer comes from rendering the array of lines on the screen.
 
-An additional consideration that needs to be made is that the computation latency needs to be less than the sampling latency. This is to avoid instances where sample values that are being used to generate visuals are overwritten with new values before they are completed. While increasing buffer size would allow for more time for computations without loss of information, it comes at the cost of having a higher sampling latency. While both Circles and Clouds have median computation latencies that are lower than the sampling latency of 5.8ms, Shimmer again exceeds the specified latency threshold.
+An additional consideration that needs to be made is that the computation latency needs to be less than the sampling latency. This is to avoid instances where sample values that are being used to generate visuals are overwritten with new values before they are completed. While increasing buffer size would allow for more time for computations without loss of information, it comes at the cost of having a higher sampling latency. While both Circles and Clouds have median computation latencies that are lower than the sampling latency of 5.8ms, Shimmer again exceeds the specified latency threshold. A potential means of reducing the latency of the visuals is discussed in Section \ref{sec:lowlevelaudio}. \par
 
 \begin{figure}
   \begin{subfigure}{0.5\textwidth}
@@ -33,9 +37,6 @@ An additional consideration that needs to be made is that the computation latenc
   \label{fig:comp_timings}
 \end{figure}
 
-While Circles and Clouds runs within an acceptable threshold of latency, Shimmer does not. A potential means of reducing the latency of the visuals is discussed in Section \ref{sec:lowlevelaudio}. \par
-
-There are three aspects to the implemented visuals that contribute to its complexity. The first is the depth implied in each visual through overlapping elements and varied alpha values. 
 \end{document}
 %%% Local Variables:
 %%% mode: latex
